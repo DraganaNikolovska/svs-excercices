@@ -21,7 +21,7 @@ public class Message implements Comparable<Message> {
 
 	@Override
 	public String toString() {
-		return date + " " + message;
+		return date + " - " + message;
 	}
 
 }

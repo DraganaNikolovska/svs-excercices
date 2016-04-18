@@ -23,7 +23,9 @@ public class Twitter implements TweeterController {
 
 	@Override
 	public void listAll() throws IOException, ParseException {
-		messageDao.findAll();
+		for (Message message : messageDao.getAllMessages()) {
+			System.out.println(message);
+		}
 
 	}
 

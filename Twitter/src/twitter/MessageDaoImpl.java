@@ -13,8 +13,7 @@ import java.util.TreeSet;
 
 public class MessageDaoImpl implements MessageDao {
 
-	private TreeSet<Message> messages;
-	private FileWriter fileWriter;
+	private TreeSet<Message> messages;	
 	private SimpleDateFormat sdf;
 
 	public MessageDaoImpl() throws IOException {
@@ -26,13 +25,13 @@ public class MessageDaoImpl implements MessageDao {
 	@Override
 	public void insertMessage(String message) throws IOException {
 
+		FileWriter fileWriter = null;
 		try {
 			fileWriter = new FileWriter("messages.txt", true);
 			String sDate = sdf.format(new Date());
 			fileWriter.write(sDate + " - " + message);
 			fileWriter.write(System.getProperty("line.separator"));
 		} catch (IOException e) {
-
 			e.printStackTrace();
 		} finally {
 			fileWriter.close();
@@ -41,23 +40,27 @@ public class MessageDaoImpl implements MessageDao {
 	}
 
 	@Override
-	public void findAll() throws IOException, ParseException {
-		read();
-		for (Message message : messages) {
-			System.out.println(message);
-		}
+	public TreeSet<Message> getAllMessages() throws ParseException, IOException {
+		BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(new FileReader("messages.txt"));
+			String line;
+			while ((line = reader.readLine()) != null) {
+				String[] parts = line.split(" - ");
+				Date date = sdf.parse(parts[0]);
+				Message message = new Message(parts[1], date);
+				messages.add(message);
+			}
 
-	}
-
-	public void read() throws IOException, ParseException {
-		BufferedReader reader = new BufferedReader(new FileReader("messages.txt"));
-		String line;
-		while ((line = reader.readLine()) != null) {
-			String[] parts = line.split(" - ");
-			Date date = sdf.parse(parts[0]);
-			Message message = new Message(parts[1], date);
-			messages.add(message);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			reader.close();
 		}
+		return messages;
+
 	}
 
 }
