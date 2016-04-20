@@ -1,7 +1,6 @@
 package com.acme.termoregulator;
 
 import com.acme.adapter.HeaterDevice;
-import com.acme.adapter.HeaterThermoregulatorAdapter;
 import com.acme.adapter.ThermometerDevice;
 import com.acme.adapter.Thermoregulator;
 

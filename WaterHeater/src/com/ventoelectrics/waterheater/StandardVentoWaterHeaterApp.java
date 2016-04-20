@@ -1,5 +1,6 @@
 package com.ventoelectrics.waterheater;
 
+import com.acme.adapter.*;
 import com.acme.termoregulator.StandardTermoregulator;
 
 public class StandardVentoWaterHeaterApp {
@@ -10,12 +11,16 @@ public class StandardVentoWaterHeaterApp {
 		final VentoHeater ventoHeater = new VentoHeater();
 		final VentoPowerSwitch ventoPowerSwitch = new VentoPowerSwitch();
 
-		/*final VentoThermoregulator ventoThermoregulator = new StandardTermoregulator(ventoHeater, ventoThermometer);
+		
+		final HeaterThermoregulatorAdapter hAdapter = new HeaterThermoregulatorAdapter(ventoHeater);
+		final ThermometerThermoregulatorAdapter tAdapter = new ThermometerThermoregulatorAdapter(ventoThermometer);
+		
+		final VentoThermoregulator ventoThermoregulator = new StandardTermoregulator(hAdapter, tAdapter);
 
 		ventoPowerSwitch.controlPowerFor(ventoThermoregulator);
 		ventoPowerSwitch.controlPowerFor(ventoHeater);
 		ventoPowerSwitch.controlPowerFor(ventoThermometer);
 
-		VentoWaterHeaterApp.run(ventoThermoregulator, ventoPowerSwitch);*/
+		VentoWaterHeaterApp.run(ventoThermoregulator, ventoPowerSwitch);
 	}
 }

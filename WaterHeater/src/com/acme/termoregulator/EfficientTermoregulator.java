@@ -1,12 +1,12 @@
 package com.acme.termoregulator;
 
-import com.acme.adapter.*;
+import com.acme.adapter.HeaterDevice;
+import com.acme.adapter.ThermometerDevice;
 
 public class EfficientTermoregulator extends Termoregulator {
 
-	public EfficientTermoregulator(HeaterThermoregulatorAdapter heaterAdapter,
-			ThermometerThermoregulatorAdapter thermometerAdapter) {
-		super(heaterAdapter, thermometerAdapter);
+	public EfficientTermoregulator(HeaterDevice heaterDevice, ThermometerDevice thermometerDevice) {
+		super(heaterDevice, thermometerDevice);
 		sleepTime = 1000;
 	}
 
