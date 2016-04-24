@@ -29,7 +29,7 @@ public class Magazine extends Publication {
 	@Override
 	public String toString() {
 
-		return issn + "\t" + getTitle();
+		return "Magazine issn = " + issn + "\t Magazine Title = " + getTitle();
 	}
 
 }

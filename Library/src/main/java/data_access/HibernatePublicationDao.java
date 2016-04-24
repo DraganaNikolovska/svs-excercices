@@ -1,5 +1,6 @@
-/*package data_access;
+package data_access;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -11,7 +12,7 @@ import domain.Book;
 import domain.Entity;
 import domain.Publication;
 
-public class HibernatePublicationDao implements Dao {
+public class HibernatePublicationDao implements PublicationDao {
 
 	private SessionFactory sessionFactory;
 
@@ -19,49 +20,30 @@ public class HibernatePublicationDao implements Dao {
 		this.sessionFactory = s;
 	}
 
-	public void insert(Entity entity) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void update(Entity entity) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void delete(Entity entity) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public List<Entity> listAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Entity get(String isbnOrIssn) {
+	@Override
+	public List<Publication> listAll() {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
-		Publication p = null;
+		List<Publication> publications = new ArrayList<Publication>();
 		try {
 			tx = session.beginTransaction();
-			String hql = "from (select * from Book b where b.isbn = :isbnOrIssn) as tmp union "
-					+ "(select * from Magazine m where m.issn = :isbnOrIssn)";
-			Query query = session.createQuery(hql);
-			query.setParameter("isbn", isbnOrIssn);
-			query.setParameter("issn", isbnOrIssn);
-			p = (Publication) query.uniqueResult();
+			String hql = "FROM Publication";
+			Query query = session.createQuery(hql);		
+			publications = query.list();		
 			tx.commit();
-			return p;
 		} catch (RuntimeException e) {
 			if (tx != null)
 				tx.rollback();
 			throw e;
 		} finally {
-
 			session.close();
 		}
+
+		return publications;
 	}
+	//confusing output
+	//[{Book isbn = 12345	 Title = book1}, {Book isbn = 23145	 Title = book2}, Magazine issn = 4315	 Magazine Title = magazine]
+	//[{Book isbn = 12345	 Title = book1}, {Book isbn = 23145	 Title = book2}, Magazine issn = 4315	 Magazine Title = magazine]
+    //[{Book isbn = 12345	 Title = book1}, {Book isbn = 23145	 Title = book2}, Magazine issn = 4315	 Magazine Title = magazine]
 
 }
-*/

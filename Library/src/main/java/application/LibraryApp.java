@@ -10,6 +10,7 @@ import data_access.HibernateConfiguration;
 import data_access.HibernateLoanDao;
 import data_access.HibernateMagazineDao;
 import data_access.HibernateMemberDao;
+import data_access.HibernatePublicationDao;
 import data_access.JDBCBookDao;
 import data_access.MyDriverManager;
 /*import data_access.JDBCBookDao;*/
@@ -85,7 +86,8 @@ public class LibraryApp {
 		SessionFactory sessionFactory = HibernateConfiguration.getSessionFactory();
 		LibraryService service = new LibraryService(new HibernateBookDao(sessionFactory),
 				new HibernateMemberDao(sessionFactory), new HibernateMagazineDao(sessionFactory),
-				new HibernateLoanDao(sessionFactory));
+				new HibernateLoanDao(sessionFactory),
+				new HibernatePublicationDao(sessionFactory));
 
 		hibernateLibraryOptions();
 
@@ -104,7 +106,7 @@ public class LibraryApp {
 				service.registerBook(isbn, title);
 				break;
 			case "2":
-				System.out.println("Enter isbn");
+				System.out.println("Enter issn");
 				issn = keyBoardScanner.nextLine();
 				System.out.println("Enter title");
 				title = keyBoardScanner.nextLine();
@@ -177,6 +179,11 @@ public class LibraryApp {
 			case "15":
 				service.listRegisteredMembers();
 				break;
+			case "16":
+				System.out.println("16 start");
+				service.listRegisteredPublications();
+				System.out.println("16 end");
+				break;
 			default:
 				break;
 			}
@@ -202,7 +209,9 @@ public class LibraryApp {
 		System.out.println("13. List all magazines");
 		System.out.println("14. List all Loans");
 		System.out.println("15. List all members");
+		System.out.println("16. List all publications");
 		System.out.println("Enter quit to quit the application");
+		
 
 	}
 

@@ -34,6 +34,6 @@ public class Book extends Publication {
 	@Override
 	public String toString() {
 
-		return isbn + "\t" + getTitle();
+		return "{Book isbn = " + isbn + "\t Title = " + getTitle() + "}";
 	}
 }

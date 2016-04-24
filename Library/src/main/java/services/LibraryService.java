@@ -20,6 +20,7 @@ import data_access.HibernateBookDao;
 import data_access.LoanDao;
 import data_access.MagazineDao;
 import data_access.MemberDao;
+import data_access.PublicationDao;
 
 public class LibraryService {
 
@@ -27,16 +28,18 @@ public class LibraryService {
 	private MemberDao memberDao;
 	private MagazineDao magzineDao;
 	private LoanDao loanDao;
+	private PublicationDao publicationDao;
 
 	public LibraryService(BookDao bookDao) {
 		this.bookDao = bookDao;
 	}
 
-	public LibraryService(BookDao bookDao, MemberDao memberDao, MagazineDao magazineDao, LoanDao loanDao) {
+	public LibraryService(BookDao bookDao, MemberDao memberDao, MagazineDao magazineDao, LoanDao loanDao, PublicationDao publicationDao) {
 		this.bookDao = bookDao;
 		this.memberDao = memberDao;
 		this.magzineDao = magazineDao;
 		this.loanDao = loanDao;
+		this.publicationDao = publicationDao;
 	}
 
 	public void registerBook(String isbn, String title) {
@@ -161,8 +164,12 @@ public class LibraryService {
 		loanDao.insert(loan);
 	}
 
-	public void lendPublication(String email, String isbnOrIssn) {
-
+	public void listRegisteredPublications(){
+		List<Publication> p = publicationDao.listAll();
+		for (Publication publication : p) {
+			System.out.println(p);
+		}
 	}
+	
 
 }
