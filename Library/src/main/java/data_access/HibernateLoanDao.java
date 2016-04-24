@@ -1,5 +1,6 @@
 package data_access;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -79,7 +80,23 @@ public class HibernateLoanDao implements Dao {
 	}
 
 	public List<Entity> listAll() {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		List<Entity> loans = new ArrayList<Entity>();
+		try {
+			tx = session.beginTransaction();
+			String hql = "FROM Loan";
+			Query query = session.createQuery(hql);
+			loans = query.list();
+			tx.commit();
+		} catch (RuntimeException e) {
+			if (tx != null)
+				tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+
+		return loans;
 	}
 }

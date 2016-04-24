@@ -24,6 +24,10 @@ public class LibraryService {
 	private Dao magzineDao;
 	private Dao loanDao;
 
+	public LibraryService(Dao bookDao) {
+		this.bookDao = bookDao;
+	}
+
 	public LibraryService(Dao bookDao, Dao memberDao, Dao magazineDao, Dao loanDao) {
 		this.bookDao = bookDao;
 		this.memberDao = memberDao;
@@ -106,10 +110,19 @@ public class LibraryService {
 			System.out.println((Magazine) entity);
 		}
 	}
-	public void deleteLoan(Integer loanId){
-		
+
+	public void listRegisteredLoans() {
+		ArrayList<Entity> loans = (ArrayList<Entity>) loanDao.listAll();
+		for (Entity entity : loans) {
+			System.out.println((Loan) entity);
+		}
+	}
+
+	public void deleteLoan(Integer loanId) {
+
 		loanDao.delete(loanId);
 	}
+
 	public void lendBook(String email, String isbn, Date startDate, Date endDate) {
 		Loan loan = new Loan();
 		Member member = (Member) memberDao.get(email);

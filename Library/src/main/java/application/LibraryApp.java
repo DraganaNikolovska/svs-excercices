@@ -11,6 +11,7 @@ import data_access.HibernateLoanDao;
 import data_access.HibernateMagazineDao;
 import data_access.HibernateMemberDao;
 import data_access.JDBCBookDao;
+import data_access.MyDriverManager;
 /*import data_access.JDBCBookDao;*/
 import services.LibraryService;
 
@@ -32,7 +33,50 @@ public class LibraryApp {
 	}
 
 	private static void jdbcMenu() {
-		// TODO Auto-generated method stub
+		LibraryService service = new LibraryService(new JDBCBookDao());
+		
+		Scanner keyBoardScanner = new Scanner(System.in);
+		String line = "";
+		String title, email, issn, isbn, y_n;
+		
+		listJDBCLibraryOptions();
+		while (!(line = keyBoardScanner.nextLine()).equalsIgnoreCase("quit")) {
+			switch (line) {
+			case "1":
+				System.out.println("Enter isbn");
+				isbn = keyBoardScanner.nextLine();
+				System.out.println("Enter title");
+				title = keyBoardScanner.nextLine();
+				service.registerBook(isbn, title);
+				break;
+			case "2":
+				System.out.println("Enter book`s isbn");
+				isbn = keyBoardScanner.nextLine();
+				System.out.println("Enter new book title");
+				title = keyBoardScanner.nextLine();
+				service.updateBookRegistrations(isbn, title);
+				break;
+			case "3":
+				System.out.println("Enter book`s isbn");
+				isbn = keyBoardScanner.nextLine();
+				service.unregisterBook(isbn);
+				break;
+			case "4":
+				service.listRegisteredBooks();
+				break;
+			default:
+				break;
+			}
+		}
+
+	}
+
+	private static void listJDBCLibraryOptions() {
+		System.out.println("1: Register book");
+		System.out.println("2: Update book");
+		System.out.println("3: Delete book");
+		System.out.println("4: List all books");
+		System.out.println("Enter quit to quit the application");
 
 	}
 
@@ -43,47 +87,95 @@ public class LibraryApp {
 				new HibernateMemberDao(sessionFactory), new HibernateMagazineDao(sessionFactory),
 				new HibernateLoanDao(sessionFactory));
 
-		Scanner scanner = new Scanner(System.in);
-		String line = "";
 		hibernateLibraryOptions();
-		while (!(line = scanner.nextLine()).equalsIgnoreCase("q")) {
-			System.out.println("hi");
-			String title, email, issn, isbn;
+
+		Scanner keyBoardScanner = new Scanner(System.in);
+		String line = "";
+		String title, email, issn, isbn, y_n;
+		int id;
+
+		while (!(line = keyBoardScanner.nextLine()).equalsIgnoreCase("quit")) {
 			switch (line) {
 			case "1":
 				System.out.println("Enter isbn");
-				isbn = scanner.nextLine();
+				isbn = keyBoardScanner.nextLine();
 				System.out.println("Enter title");
-				title = scanner.nextLine();
+				title = keyBoardScanner.nextLine();
 				service.registerBook(isbn, title);
 				break;
 			case "2":
 				System.out.println("Enter isbn");
-				issn = scanner.nextLine();
+				issn = keyBoardScanner.nextLine();
 				System.out.println("Enter title");
-				title = scanner.nextLine();
+				title = keyBoardScanner.nextLine();
 				service.registerMagazine(issn, title);
 				break;
 			case "3":
 				System.out.println("Enter name");
-				String name = scanner.nextLine();
+				String name = keyBoardScanner.nextLine();
 				System.out.println("Enter email");
-				email = scanner.nextLine();
+				email = keyBoardScanner.nextLine();
 				service.registerMember(name, email);
 				break;
 			case "4":
 				System.out.println("Enter member`s email");
-				email = scanner.nextLine();
+				email = keyBoardScanner.nextLine();
 				System.out.println("Enter book`s isbn");
-				isbn = scanner.nextLine();
+				isbn = keyBoardScanner.nextLine();
 				service.lendBook(email, isbn, new Date(), new Date());
 				break;
 			case "5":
 				System.out.println("Enter member`s email");
-				email = scanner.nextLine();
+				email = keyBoardScanner.nextLine();
 				System.out.println("Enter magazine`s issn");
-				issn = scanner.nextLine();
+				issn = keyBoardScanner.nextLine();
 				service.lendMagazine(email, issn, new Date(), new Date());
+				break;
+			case "6":
+				System.out.println("Enter book`s isbn");
+				isbn = keyBoardScanner.nextLine();
+				System.out.println("Enter new book title");
+				title = keyBoardScanner.nextLine();
+				service.updateBookRegistrations(isbn, title);
+				break;
+			case "7":
+				System.out.println("Enter magazine`s issn");
+				issn = keyBoardScanner.nextLine();
+				System.out.println("Enter new magazine title");
+				title = keyBoardScanner.nextLine();
+				service.updateBookRegistrations(issn, title);
+				break;
+			case "8":
+				System.out.println("Enter book`s isbn");
+				isbn = keyBoardScanner.nextLine();
+				service.unregisterBook(isbn);
+				break;
+			case "9":
+				System.out.println("Enter magazine`s issn");
+				issn = keyBoardScanner.nextLine();
+				service.unregisterMagazine(issn);
+				break;
+			case "10":
+				System.out.println("Enter loan`s id");
+				id = keyBoardScanner.nextInt();
+				service.deleteLoan(id);
+				break;
+			case "11":
+				System.out.println("Enter user`s email");
+				email = keyBoardScanner.nextLine();
+				service.unregisterMember(email);
+				break;
+			case "12":
+				service.listRegisteredBooks();
+				break;
+			case "13":
+				service.listRegisteredMagazines();
+				break;
+			case "14":
+				service.listRegisteredLoans();
+				break;
+			case "15":
+				service.listRegisteredMembers();
 				break;
 			default:
 				break;
