@@ -1,6 +1,5 @@
 package data_access;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -9,16 +8,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
-
-import domain.Book;
 import domain.Entity;
+import domain.Loan;
 import domain.Member;
 
-public class HibernateMemberDao implements Dao {
-
+public class HibernateLoanDao implements Dao {
 	private SessionFactory sessionFactory;
 
-	public HibernateMemberDao(SessionFactory sessionFactory) {
+	public HibernateLoanDao(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
@@ -37,6 +34,7 @@ public class HibernateMemberDao implements Dao {
 		} finally {
 			session.close();
 		}
+
 	}
 
 	public void delete(Object uniqueValue) {
@@ -44,29 +42,10 @@ public class HibernateMemberDao implements Dao {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Criteria cr = session.createCriteria(Member.class);
-		 	Member x = (Member) cr.add(Restrictions.eq("email", uniqueValue)).uniqueResult();
-			session.delete(x);
-			tx.commit();
-		} catch (RuntimeException e) {
-			if (tx == null)
-				tx.rollback();
-			throw e;
-		} finally {
-			session.close();
-		}
-
-	}
-
-	public List<Entity> listAll() {
-		Session session = sessionFactory.openSession();
-		Transaction tx = null;
-		List<Entity> members = new ArrayList<Entity>();
-		try {
-			tx = session.beginTransaction();
-			String hql = "FROM Member";
+			String hql = "DELETE FROM Loan l WHERE l.id = :id";
 			Query query = session.createQuery(hql);
-			members = query.list();
+			query.setParameter("id", uniqueValue);
+			query.executeUpdate();
 			tx.commit();
 		} catch (RuntimeException e) {
 			if (tx != null)
@@ -75,13 +54,6 @@ public class HibernateMemberDao implements Dao {
 		} finally {
 			session.close();
 		}
-
-		return members;
-	}
-
-	public void update(Entity entity) {
-		// the behavior of this method is currently undefined
-
 	}
 
 	public Entity get(Object uniqueValue) {
@@ -89,10 +61,10 @@ public class HibernateMemberDao implements Dao {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Criteria cr = session.createCriteria(Member.class);
-			Member m = (Member) cr.add(Restrictions.eq("email", uniqueValue)).uniqueResult();
+			Criteria cr = session.createCriteria(Loan.class);
+			Loan l = (Loan) cr.add(Restrictions.eq("id", uniqueValue)).uniqueResult();
 			tx.commit();
-			return m;
+			return l;
 		} catch (RuntimeException e) {
 			if (tx == null)
 				tx.rollback();
@@ -102,5 +74,12 @@ public class HibernateMemberDao implements Dao {
 		}
 	}
 
+	public void update(Entity entity) {
+		// behavior of this method is currently undefined
+	}
 
+	public List<Entity> listAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

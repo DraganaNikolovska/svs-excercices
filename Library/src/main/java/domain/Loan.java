@@ -40,5 +40,8 @@ public class Loan extends domain.Entity{
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
 	
 }

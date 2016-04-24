@@ -12,22 +12,6 @@ import domain.Entity;
 
 public class JDBCBookDao implements Dao {
 
-	/*
-	 * public ArrayList<Book> listAll() { Connection connection = null; try {
-	 * connection = MyDriverManager.getMyConnection(); PreparedStatement
-	 * preparedStatement = connection .prepareStatement("select * from book");
-	 * 
-	 * ArrayList<Book> list = new ArrayList<Book>(); ResultSet set =
-	 * preparedStatement.executeQuery(); while(set.next()){ String isbn =
-	 * set.getString("isbn"); String title = set.getString("title"); Book b =
-	 * new Book(isbn, title); list.add(b); } return list;
-	 * 
-	 * } catch (SQLException e) { throw new RuntimeException(e); } finally { try
-	 * { connection.close(); } catch (SQLException e) { throw new
-	 * RuntimeException(e); } }
-	 * 
-	 * }
-	 */
 	public void insert(Entity entity) {
 		Connection connection = null;
 		try {
@@ -76,13 +60,12 @@ public class JDBCBookDao implements Dao {
 
 	}
 
-	public void delete(Entity entity) {
+	public void delete(Object uniqueValue) {
 		Connection connection = null;
 		try {
 			connection = MyDriverManager.getMyConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement("delete from book where isbn = ?");
-			Book b = (Book) entity;
-			preparedStatement.setString(1, b.getIsbn());
+			preparedStatement.setString(1, (String) uniqueValue);
 			preparedStatement.executeUpdate();
 			preparedStatement.close();
 
@@ -125,5 +108,11 @@ public class JDBCBookDao implements Dao {
 			}
 		}
 	}
+
+	public Entity get(Object uniqueValue) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

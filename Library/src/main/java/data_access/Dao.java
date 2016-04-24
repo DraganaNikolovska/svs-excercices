@@ -7,13 +7,16 @@ import java.util.List;
 import domain.Entity;
 import domain.Magazine;
 
-public interface Dao {
+public interface Dao<E> {
 
 	public void insert(Entity entity);
 
 	public void update(Entity entity);
 
-	public void delete(Entity entity);
+	public void delete(E uniqueValue);
+
+	public Entity get(E uniqueValue);
 
 	public List<Entity> listAll();
+
 }

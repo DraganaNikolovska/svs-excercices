@@ -10,17 +10,15 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
-import domain.Book;
 import domain.Entity;
-import domain.Member;
-import domain.Publication;
+import domain.Magazine;
 
-public class HibernateBookDao implements Dao {
+public class HibernateMagazineDao implements Dao {
 
 	private SessionFactory sessionFactory;
 
-	public HibernateBookDao(SessionFactory s) {
-		this.sessionFactory = s;
+	public HibernateMagazineDao(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 
 	public void insert(Entity entity) {
@@ -45,11 +43,11 @@ public class HibernateBookDao implements Dao {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			String hql = "UPDATE Book set title = :title WHERE isbn = :isbn";
-			Book b = (Book) entity;
+			String hql = "UPDATE Magazine set title = :title WHERE issn = :issn";
+			Magazine m = (Magazine) entity;
 			Query query = session.createQuery(hql);
-			query.setParameter("title", b.getTitle());
-			query.setParameter("isbn", b.getIsbn());
+			query.setParameter("title", m.getTitle());
+			query.setParameter("issn", m.getIssn());
 			query.executeUpdate();
 			tx.commit();
 		} catch (RuntimeException e) {
@@ -68,7 +66,7 @@ public class HibernateBookDao implements Dao {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			String hql = "DELETE FROM Book B WHERE B.isbn = :isbn";
+			String hql = "DELETE FROM Magazine M WHERE M.issn = :issn";
 			Query query = session.createQuery(hql);
 			query.setParameter("isbn", uniqueValue);
 			query.executeUpdate();
@@ -78,7 +76,6 @@ public class HibernateBookDao implements Dao {
 				tx.rollback();
 			throw e;
 		} finally {
-
 			session.close();
 		}
 
@@ -87,12 +84,12 @@ public class HibernateBookDao implements Dao {
 	public List<Entity> listAll() {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
-		List<Entity> books = new ArrayList<Entity>();
+		List<Entity> magazines = new ArrayList<Entity>();
 		try {
 			tx = session.beginTransaction();
-			String hql = "FROM Book";
+			String hql = "FROM Magazine";
 			Query query = session.createQuery(hql);
-			books = query.list();
+			magazines = query.list();
 			tx.commit();
 		} catch (RuntimeException e) {
 			if (tx != null)
@@ -102,7 +99,7 @@ public class HibernateBookDao implements Dao {
 			session.close();
 		}
 
-		return books;
+		return magazines;
 	}
 
 	public Entity get(Object uniqueValue) {
@@ -110,10 +107,10 @@ public class HibernateBookDao implements Dao {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Criteria cr = session.createCriteria(Book.class);
-			Book b = (Book) cr.add(Restrictions.eq("isbn", uniqueValue)).uniqueResult();
+			Criteria cr = session.createCriteria(Magazine.class);
+			Magazine m = (Magazine) cr.add(Restrictions.eq("issn", uniqueValue)).uniqueResult();
 			tx.commit();
-			return b;
+			return m;
 		} catch (RuntimeException e) {
 			if (tx == null)
 				tx.rollback();
@@ -122,5 +119,6 @@ public class HibernateBookDao implements Dao {
 			session.close();
 		}
 	}
+
 
 }
