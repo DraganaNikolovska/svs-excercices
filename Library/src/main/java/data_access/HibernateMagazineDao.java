@@ -13,7 +13,7 @@ import org.hibernate.criterion.Restrictions;
 import domain.Entity;
 import domain.Magazine;
 
-public class HibernateMagazineDao implements Dao {
+public class HibernateMagazineDao implements MagazineDao {
 
 	private SessionFactory sessionFactory;
 
@@ -102,13 +102,14 @@ public class HibernateMagazineDao implements Dao {
 		return magazines;
 	}
 
-	public Entity get(Object uniqueValue) {
+	@Override
+	public Magazine fineByIssn(String issn) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
 			Criteria cr = session.createCriteria(Magazine.class);
-			Magazine m = (Magazine) cr.add(Restrictions.eq("issn", uniqueValue)).uniqueResult();
+			Magazine m = (Magazine) cr.add(Restrictions.eq("issn", issn)).uniqueResult();
 			tx.commit();
 			return m;
 		} catch (RuntimeException e) {

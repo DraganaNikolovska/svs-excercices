@@ -14,7 +14,7 @@ import domain.Book;
 import domain.Entity;
 import domain.Member;
 
-public class HibernateMemberDao implements Dao {
+public class HibernateMemberDao implements MemberDao {
 
 	private SessionFactory sessionFactory;
 
@@ -84,13 +84,14 @@ public class HibernateMemberDao implements Dao {
 
 	}
 
-	public Entity get(Object uniqueValue) {
+	@Override
+	public Member findByEmail(String email) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
 			Criteria cr = session.createCriteria(Member.class);
-			Member m = (Member) cr.add(Restrictions.eq("email", uniqueValue)).uniqueResult();
+			Member m = (Member) cr.add(Restrictions.eq("email", email)).uniqueResult();
 			tx.commit();
 			return m;
 		} catch (RuntimeException e) {

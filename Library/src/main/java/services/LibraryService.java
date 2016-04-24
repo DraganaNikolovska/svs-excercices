@@ -14,21 +14,25 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import data_access.BookDao;
 import data_access.Dao;
 import data_access.HibernateBookDao;
+import data_access.LoanDao;
+import data_access.MagazineDao;
+import data_access.MemberDao;
 
 public class LibraryService {
 
-	private Dao bookDao;
-	private Dao memberDao;
-	private Dao magzineDao;
-	private Dao loanDao;
+	private BookDao bookDao;
+	private MemberDao memberDao;
+	private MagazineDao magzineDao;
+	private LoanDao loanDao;
 
-	public LibraryService(Dao bookDao) {
+	public LibraryService(BookDao bookDao) {
 		this.bookDao = bookDao;
 	}
 
-	public LibraryService(Dao bookDao, Dao memberDao, Dao magazineDao, Dao loanDao) {
+	public LibraryService(BookDao bookDao, MemberDao memberDao, MagazineDao magazineDao, LoanDao loanDao) {
 		this.bookDao = bookDao;
 		this.memberDao = memberDao;
 		this.magzineDao = magazineDao;
@@ -119,17 +123,16 @@ public class LibraryService {
 	}
 
 	public void deleteLoan(Integer loanId) {
-
 		loanDao.delete(loanId);
 	}
 
 	public void lendBook(String email, String isbn, Date startDate, Date endDate) {
 		Loan loan = new Loan();
-		Member member = (Member) memberDao.get(email);
+		Member member = (Member) memberDao.findByEmail(email);
 		if (member == null) {
 			throw new NonExistingMember(email);
 		}
-		Book b = (Book) bookDao.get(isbn);
+		Book b = (Book) bookDao.findByIsbn(isbn);
 		if (b == null) {
 			throw new NonExistingBook(isbn);
 		}
@@ -143,11 +146,11 @@ public class LibraryService {
 
 	public void lendMagazine(String email, String issn, Date startDate, Date endDate) {
 		Loan loan = new Loan();
-		Member member = (Member) memberDao.get(email);
+		Member member = (Member) memberDao.findByEmail(email);
 		if (member == null) {
 			throw new NonExistingMember(email);
 		}
-		Magazine m = (Magazine) magzineDao.get(issn);
+		Magazine m = (Magazine) magzineDao.fineByIssn(issn);
 		if (m == null) {
 			throw new NonExistingMagazine(issn);
 		}

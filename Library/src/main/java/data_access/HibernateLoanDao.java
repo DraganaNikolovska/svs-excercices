@@ -13,7 +13,7 @@ import domain.Entity;
 import domain.Loan;
 import domain.Member;
 
-public class HibernateLoanDao implements Dao {
+public class HibernateLoanDao implements LoanDao {
 	private SessionFactory sessionFactory;
 
 	public HibernateLoanDao(SessionFactory sessionFactory) {
@@ -57,24 +57,6 @@ public class HibernateLoanDao implements Dao {
 		}
 	}
 
-	public Entity get(Object uniqueValue) {
-		Session session = sessionFactory.openSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			Criteria cr = session.createCriteria(Loan.class);
-			Loan l = (Loan) cr.add(Restrictions.eq("id", uniqueValue)).uniqueResult();
-			tx.commit();
-			return l;
-		} catch (RuntimeException e) {
-			if (tx == null)
-				tx.rollback();
-			throw e;
-		} finally {
-			session.close();
-		}
-	}
-
 	public void update(Entity entity) {
 		// behavior of this method is currently undefined
 	}
@@ -98,5 +80,24 @@ public class HibernateLoanDao implements Dao {
 		}
 
 		return loans;
+	}
+
+	@Override
+	public Loan findById(Integer id) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Criteria cr = session.createCriteria(Loan.class);
+			Loan l = (Loan) cr.add(Restrictions.eq("id", id)).uniqueResult();
+			tx.commit();
+			return l;
+		} catch (RuntimeException e) {
+			if (tx == null)
+				tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
 	}
 }

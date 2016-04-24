@@ -10,7 +10,7 @@ import java.util.List;
 import domain.Book;
 import domain.Entity;
 
-public class JDBCBookDao implements Dao {
+public class JDBCBookDao implements BookDao {
 
 	public void insert(Entity entity) {
 		Connection connection = null;
@@ -109,7 +109,9 @@ public class JDBCBookDao implements Dao {
 		}
 	}
 
-	public Entity get(Object uniqueValue) {
+
+	@Override
+	public Book findByIsbn(String isbn) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -15,7 +15,7 @@ import domain.Entity;
 import domain.Member;
 import domain.Publication;
 
-public class HibernateBookDao implements Dao {
+public class HibernateBookDao implements BookDao {
 
 	private SessionFactory sessionFactory;
 
@@ -105,13 +105,14 @@ public class HibernateBookDao implements Dao {
 		return books;
 	}
 
-	public Entity get(Object uniqueValue) {
+	@Override
+	public Book findByIsbn(String isbn) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
 			Criteria cr = session.createCriteria(Book.class);
-			Book b = (Book) cr.add(Restrictions.eq("isbn", uniqueValue)).uniqueResult();
+			Book b = (Book) cr.add(Restrictions.eq("isbn", isbn)).uniqueResult();
 			tx.commit();
 			return b;
 		} catch (RuntimeException e) {
@@ -122,5 +123,11 @@ public class HibernateBookDao implements Dao {
 			session.close();
 		}
 	}
+
+	
+
+	
+
+	
 
 }
