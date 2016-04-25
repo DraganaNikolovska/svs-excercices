@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import data_access.BookDao;
 import data_access.Dao;
 import data_access.HibernateBookDao;
@@ -22,6 +25,7 @@ import data_access.MagazineDao;
 import data_access.MemberDao;
 import data_access.PublicationDao;
 
+@Service
 public class LibraryService {
 
 	private BookDao bookDao;
@@ -30,10 +34,11 @@ public class LibraryService {
 	private LoanDao loanDao;
 	private PublicationDao publicationDao;
 
-	public LibraryService(BookDao bookDao) {
+/*	public LibraryService(BookDao bookDao) {
 		this.bookDao = bookDao;
-	}
+	}*/
 
+	@Autowired
 	public LibraryService(BookDao bookDao, MemberDao memberDao, MagazineDao magazineDao, LoanDao loanDao, PublicationDao publicationDao) {
 		this.bookDao = bookDao;
 		this.memberDao = memberDao;
@@ -165,9 +170,9 @@ public class LibraryService {
 	}
 
 	public void listRegisteredPublications(){
-		List<Publication> p = publicationDao.listAll();
-		for (Publication publication : p) {
-			System.out.println(p);
+		List<Publication> list = publicationDao.listAll();
+		for (Publication publication : list) {
+			System.out.println(publication);
 		}
 	}
 	

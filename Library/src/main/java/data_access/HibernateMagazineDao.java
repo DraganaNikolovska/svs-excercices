@@ -9,14 +9,18 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import domain.Entity;
 import domain.Magazine;
 
+@Repository
 public class HibernateMagazineDao implements MagazineDao {
 
 	private SessionFactory sessionFactory;
 
+	@Autowired
 	public HibernateMagazineDao(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

@@ -7,15 +7,18 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import domain.Book;
 import domain.Entity;
 import domain.Publication;
-
+@Repository
 public class HibernatePublicationDao implements PublicationDao {
 
 	private SessionFactory sessionFactory;
 
+	@Autowired
 	public HibernatePublicationDao(SessionFactory s) {
 		this.sessionFactory = s;
 	}
@@ -41,9 +44,6 @@ public class HibernatePublicationDao implements PublicationDao {
 
 		return publications;
 	}
-	//confusing output
-	//[{Book isbn = 12345	 Title = book1}, {Book isbn = 23145	 Title = book2}, Magazine issn = 4315	 Magazine Title = magazine]
-	//[{Book isbn = 12345	 Title = book1}, {Book isbn = 23145	 Title = book2}, Magazine issn = 4315	 Magazine Title = magazine]
-    //[{Book isbn = 12345	 Title = book1}, {Book isbn = 23145	 Title = book2}, Magazine issn = 4315	 Magazine Title = magazine]
+	
 
 }

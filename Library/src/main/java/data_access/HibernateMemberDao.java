@@ -9,15 +9,18 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import domain.Book;
 import domain.Entity;
 import domain.Member;
-
+@Repository
 public class HibernateMemberDao implements MemberDao {
 
 	private SessionFactory sessionFactory;
 
+	@Autowired
 	public HibernateMemberDao(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

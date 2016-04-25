@@ -9,13 +9,17 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import domain.Entity;
 import domain.Loan;
 import domain.Member;
-
+@Repository
 public class HibernateLoanDao implements LoanDao {
 	private SessionFactory sessionFactory;
 
+	@Autowired
 	public HibernateLoanDao(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
