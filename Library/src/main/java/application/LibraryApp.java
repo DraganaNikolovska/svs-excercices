@@ -26,25 +26,27 @@ import presentation.LibraryController;
 import services.LibraryService;
 
 @SpringBootApplication
-public class LibraryApp implements CommandLineRunner, ApplicationContextAware {
+public class LibraryApp implements CommandLineRunner // ,ApplicationContextAware
+{
 
-	ApplicationContext context;
+	static ApplicationContext context;
 
 	public static void main(String[] args) {
-		SpringApplication.run(LibraryApp.class, args);
+		context = SpringApplication.run(LibraryApp.class, args);
 	}
 
 	@Override
 	public void run(String... arg0) throws Exception {
 		// ApplicationContext context = ??
-		context.getBean(LibraryController.class).run();
+		LibraryController controller = context.getBean(LibraryController.class);
+		controller.run();
 
 	}
-
-	@Override
-	public void setApplicationContext(ApplicationContext arg0) throws BeansException {
-		this.context = arg0;
-
-	}
+	/*
+	 * @Override public void setApplicationContext(ApplicationContext arg0)
+	 * throws BeansException { this.context = arg0;
+	 * 
+	 * }
+	 */
 
 }
