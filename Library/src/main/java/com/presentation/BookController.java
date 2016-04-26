@@ -19,27 +19,30 @@ import com.services.LibraryService;
 public class BookController {
 
 	@Autowired
-	private HibernateBookDao hibernateBookRepository;
+	private LibraryService libraryService;
 
 	@ModelAttribute("books")
 	public List<Entity> books() {
-		return hibernateBookRepository.listAll();
+		return libraryService.listRegisteredBooks();
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String listBooks() {
 		return "books";
 	}
+
 	@ModelAttribute("book")
-	Book book(){
+	Book book() {
 		return new Book();
 	}
+
 	@RequestMapping(method = RequestMethod.POST)
 	public String registerOrUpdateBook(@ModelAttribute("book") Book book) {
-		if (book.getId() == null) {
-			hibernateBookRepository.insert(book);
+
+		if (libraryService.findBookByIsbn(book.getIsbn()) == null) {
+			libraryService.registerBook(book.getIsbn(), book.getTitle());
 		} else {
-			hibernateBookRepository.update(book);
+			libraryService.updateBookRegistrations(book.getIsbn(), book.getTitle());
 		}
 		return "redirect:/books";
 	}

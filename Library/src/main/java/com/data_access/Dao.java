@@ -11,8 +11,6 @@ public interface Dao<E> {
 
 	public void insert(Entity entity);
 
-	public void update(Entity entity);
-
 	public void delete(E uniqueValue);
 
 	public List<Entity> listAll();

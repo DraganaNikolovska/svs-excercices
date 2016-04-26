@@ -42,29 +42,6 @@ public class HibernateMagazineDao implements MagazineDao {
 		}
 	}
 
-	public void update(Entity entity) {
-		Session session = sessionFactory.openSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			String hql = "UPDATE Magazine set title = :title WHERE issn = :issn";
-			Magazine m = (Magazine) entity;
-			Query query = session.createQuery(hql);
-			query.setParameter("title", m.getTitle());
-			query.setParameter("issn", m.getIssn());
-			query.executeUpdate();
-			tx.commit();
-		} catch (RuntimeException e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-			throw e;
-		} finally {
-			session.close();
-		}
-
-	}
-
 	public void delete(Object uniqueValue) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
@@ -125,5 +102,27 @@ public class HibernateMagazineDao implements MagazineDao {
 		}
 	}
 
+	@Override
+	public void updateMagazineTitle(String issn, String title) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			String hql = "UPDATE Magazine set title = :title WHERE issn = :issn";
+			Query query = session.createQuery(hql);
+			query.setParameter("title", title);
+			query.setParameter("issn", issn);
+			query.executeUpdate();
+			tx.commit();
+		} catch (RuntimeException e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw e;
+		} finally {
+			session.close();
+		}
+
+	}
 
 }

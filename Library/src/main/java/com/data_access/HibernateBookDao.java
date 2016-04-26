@@ -44,28 +44,6 @@ public class HibernateBookDao implements BookDao {
 		}
 	}
 
-	public void update(Entity entity) {
-		Session session = sessionFactory.openSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			String hql = "UPDATE Book set title = :title WHERE isbn = :isbn";
-			Book b = (Book) entity;
-			Query query = session.createQuery(hql);
-			query.setParameter("title", b.getTitle());
-			query.setParameter("isbn", b.getIsbn());
-			query.executeUpdate();
-			tx.commit();
-		} catch (RuntimeException e) {
-			if (tx != null) {
-				tx.rollback();
-			}
-			throw e;
-		} finally {
-			session.close();
-		}
-
-	}
 
 	public void delete(Object uniqueValue) {
 		Session session = sessionFactory.openSession();
@@ -128,10 +106,27 @@ public class HibernateBookDao implements BookDao {
 		}
 	}
 
-	
+	@Override
+	public void updateBookTitle(String isbn, String title) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			String hql = "UPDATE Book set title = :title WHERE isbn = :isbn";
+			Query query = session.createQuery(hql);
+			query.setParameter("title", title);
+			query.setParameter("isbn", isbn);
+			query.executeUpdate();
+			tx.commit();
+		} catch (RuntimeException e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw e;
+		} finally {
+			session.close();
+		}
 
-	
-
-	
+	}
 
 }

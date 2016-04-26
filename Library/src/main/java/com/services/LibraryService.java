@@ -30,19 +30,19 @@ import com.data_access.PublicationDao;
 @Service
 public class LibraryService {
 
-	
 	private BookDao bookDao;
 	private MemberDao memberDao;
 	private MagazineDao magzineDao;
 	private LoanDao loanDao;
 	private PublicationDao publicationDao;
 
-/*	public LibraryService(BookDao bookDao) {
-		this.bookDao = bookDao;
-	}*/
+	/*
+	 * public LibraryService(BookDao bookDao) { this.bookDao = bookDao; }
+	 */
 
 	@Autowired
-	public LibraryService(BookDao bookDao, MemberDao memberDao, MagazineDao magazineDao, LoanDao loanDao, PublicationDao publicationDao) {
+	public LibraryService(BookDao bookDao, MemberDao memberDao, MagazineDao magazineDao, LoanDao loanDao,
+			PublicationDao publicationDao) {
 		this.bookDao = bookDao;
 		this.memberDao = memberDao;
 		this.magzineDao = magazineDao;
@@ -65,17 +65,15 @@ public class LibraryService {
 	}
 
 	public void updateBookRegistrations(String isbn, String title) {
-		Book b = new Book();
-		b.setIsbn(isbn);
-		b.setTitle(title);
-		bookDao.update(b);
+		bookDao.updateBookTitle(isbn, title);
 	}
 
-	public void listRegisteredBooks() {
+	public List<Entity> listRegisteredBooks() {
 		ArrayList<Entity> books = (ArrayList<Entity>) bookDao.listAll();
 		for (Entity entity : books) {
 			System.out.println((Book) entity);
 		}
+		return books;
 	}
 
 	public void registerMember(String name, String email) {
@@ -113,17 +111,16 @@ public class LibraryService {
 	}
 
 	public void updateMagazineRegistrations(String issn, String title) {
-		Magazine m = new Magazine();
-		m.setIssn(issn);
-		m.setTitle(title);
-		magzineDao.update(m);
+	
+		magzineDao.updateMagazineTitle(issn, title);
 	}
 
-	public void listRegisteredMagazines() {
+	public List<Entity> listRegisteredMagazines() {
 		ArrayList<Entity> magazines = (ArrayList<Entity>) magzineDao.listAll();
 		for (Entity entity : magazines) {
 			System.out.println((Magazine) entity);
 		}
+		return magazines;
 	}
 
 	public void listRegisteredLoans() {
@@ -172,12 +169,15 @@ public class LibraryService {
 		loanDao.insert(loan);
 	}
 
-	public void listRegisteredPublications(){
+	public List<Publication> listRegisteredPublications() {
 		List<Publication> list = publicationDao.listAll();
 		for (Publication publication : list) {
 			System.out.println(publication);
 		}
+		return list;
 	}
-	
+	public Book findBookByIsbn(String isbn){
+		return bookDao.findByIsbn(isbn);
+	}
 
 }

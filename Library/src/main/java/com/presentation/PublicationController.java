@@ -17,7 +17,7 @@ import com.services.LibraryService;
 public class PublicationController {
 
 	@Autowired
-	private HibernatePublicationDao publicationDao;
+	private LibraryService service;
 
 	@RequestMapping(method = RequestMethod.GET)
 	String publications() {
@@ -26,6 +26,6 @@ public class PublicationController {
 
 	@ModelAttribute("publications")
 	List<Publication> listPublications() {
-		return publicationDao.listAll();
+		return service.listRegisteredPublications();
 	}
 }
