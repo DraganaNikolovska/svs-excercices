@@ -9,17 +9,17 @@ public abstract class Entity {
 
 	@Id
 	@GeneratedValue
-	private int id;
+	private Integer id;
 
 	public Entity() {
 		
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 }

@@ -21,15 +21,27 @@ public class BookController {
 	@Autowired
 	private HibernateBookDao hibernateBookRepository;
 
-	
 	@ModelAttribute("books")
 	public List<Entity> books() {
 		return hibernateBookRepository.listAll();
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public String listBooks() {
 		return "books";
 	}
-	
+	@ModelAttribute("book")
+	Book book(){
+		return new Book();
+	}
+	@RequestMapping(method = RequestMethod.POST)
+	public String registerOrUpdateBook(@ModelAttribute("book") Book book) {
+		if (book.getId() == null) {
+			hibernateBookRepository.insert(book);
+		} else {
+			hibernateBookRepository.update(book);
+		}
+		return "redirect:/books";
+	}
+
 }

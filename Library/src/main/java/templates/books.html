@@ -18,6 +18,15 @@
 <body>
 	<div class="container">
 		<h3 align="center">Books</h3>
+
+		<form action="#" th:action="@{/books}" th:object="${book}"
+			method="post">
+			<input type="hidden" th:field="*{id}" /> 
+			<input type="text" th:field="*{isbn}" /> 
+			<input type="text" th:field="*{title}" /> <br />
+			<input type="submit" value="Register or update book registration" />
+		</form>
+
 		<table>
 			<tr th:each="book: ${books}">
 
@@ -25,12 +34,12 @@
 
 					<div class="panel-body">
 						<div>
-							<span style="font-weight: bold">Title: </span>
-							<span th:text="${book.title}"></span>
+							<span style="font-weight: bold">Title: </span> <span
+								th:text="${book.title}"></span>
 						</div>
 						<div>
-							<span style="font-weight: bold">ISBN: </span> 
-							<span th:text="${book.isbn}"></span>
+							<span style="font-weight: bold">ISBN: </span> <span
+								th:text="${book.isbn}"></span>
 						</div>
 
 					</div>
@@ -38,12 +47,6 @@
 						<a th:href="@{/books/{id}(id=${book.id})}">Edit</a>
 					</div>
 				</div>
-
-				<!-- <td><a th:href="@{/books/{id}(id=${book.id})}">Edit</a></td>
-				<td>|</td>
-				<td th:text="${book.isbn}">ISBN</td>
-				<td>|</td>
-				<td th:text="${book.title}">Title</td> -->
 			</tr>
 		</table>
 	</div>
