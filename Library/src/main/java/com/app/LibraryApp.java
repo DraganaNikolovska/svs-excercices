@@ -10,18 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.ComponentScan;
-
-import com.data_access.HibernateBookDao;
-import com.data_access.HibernateConfiguration;
-import com.data_access.HibernateLoanDao;
-import com.data_access.HibernateMagazineDao;
-import com.data_access.HibernateMemberDao;
-import com.data_access.HibernatePublicationDao;
-import com.data_access.JDBCBookDao;
-import com.data_access.MyDriverManager;
 import com.presentation.LibraryController;
-/*import data_access.JDBCBookDao;*/
-import com.services.LibraryService;
 
 @SpringBootApplication
 @ComponentScan(basePackages = "com.*")

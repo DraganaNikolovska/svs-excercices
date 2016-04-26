@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Library</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link
+	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}"
+	rel="stylesheet" media="screen" />
+
+<script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+	th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+<link href="../static/css/master.css" th:href="@{css/master.css}"
+	rel="stylesheet" media="screen" />
+
+</head>
+<body>
+	<div class="container">
+		<h3 align="center">Books</h3>
+		<table>
+			<tr th:each="book: ${books}">
+
+				<div class="panel panel-success col-md-3">
+
+					<div class="panel-body">
+						<div>
+							<span style="font-weight: bold">Title: </span>
+							<span th:text="${book.title}"></span>
+						</div>
+						<div>
+							<span style="font-weight: bold">ISBN: </span> 
+							<span th:text="${book.isbn}"></span>
+						</div>
+
+					</div>
+					<div class="panel-footer" align="center">
+						<a th:href="@{/books/{id}(id=${book.id})}">Edit</a>
+					</div>
+				</div>
+
+				<!-- <td><a th:href="@{/books/{id}(id=${book.id})}">Edit</a></td>
+				<td>|</td>
+				<td th:text="${book.isbn}">ISBN</td>
+				<td>|</td>
+				<td th:text="${book.title}">Title</td> -->
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

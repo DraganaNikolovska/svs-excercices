@@ -1,0 +1,21 @@
+body {
+	background-color: #b3e6b3;
+}
+
+ul {
+	list-style-type: none;
+}
+
+a {
+	font-size: large;
+	color: black;
+}
+
+li {
+	
+	border-radius: 4px;
+}
+
+.panel-footer {
+	margin-bottom: 4%;
+}
