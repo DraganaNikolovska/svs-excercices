@@ -180,4 +180,8 @@ public class LibraryService {
 		return bookDao.findByIsbn(isbn);
 	}
 
+	public Book findBookById(Integer id) {
+		return bookDao.findById(id);
+	}
+
 }

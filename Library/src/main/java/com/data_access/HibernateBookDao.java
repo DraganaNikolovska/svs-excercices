@@ -129,4 +129,23 @@ public class HibernateBookDao implements BookDao {
 
 	}
 
+	@Override
+	public Book findById(Integer id) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Criteria cr = session.createCriteria(Book.class);
+			Book b = (Book) cr.add(Restrictions.eq("id", id)).uniqueResult();
+			tx.commit();
+			return b;
+		} catch (RuntimeException e) {
+			if (tx == null)
+				tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+	}
+
 }
