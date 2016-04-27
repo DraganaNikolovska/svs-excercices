@@ -59,11 +59,9 @@ public class BookController {
 	}
 
 	@RequestMapping(value = "/delete/{isbn}", method = RequestMethod.POST)
-	public String deleteBook(@PathVariable("isbn") String isbn, Model model) {
-		System.out.println("in CONTROLLER!!!!!!!!");
+	public String deleteBook(@PathVariable("isbn") String isbn) {
 		libraryService.unregisterBook(isbn);
-		model.addAttribute("book", book());
-		return "books";
+		return "redirect:/books";
 	}
 
 	/*
