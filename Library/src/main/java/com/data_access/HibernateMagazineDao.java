@@ -42,33 +42,13 @@ public class HibernateMagazineDao implements MagazineDao {
 		}
 	}
 
-	public void delete(Object uniqueValue) {
-		Session session = sessionFactory.openSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			String hql = "DELETE FROM Magazine M WHERE M.issn = :issn";
-			Query query = session.createQuery(hql);
-			query.setParameter("isbn", uniqueValue);
-			query.executeUpdate();
-			tx.commit();
-		} catch (RuntimeException e) {
-			if (tx != null)
-				tx.rollback();
-			throw e;
-		} finally {
-			session.close();
-		}
-
-	}
-
 	public List<Entity> listAll() {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		List<Entity> magazines = new ArrayList<Entity>();
 		try {
 			tx = session.beginTransaction();
-			String hql = "FROM Magazine";
+			String hql = "FROM Magazine m ORDER BY m.id";
 			Query query = session.createQuery(hql);
 			magazines = query.list();
 			tx.commit();
@@ -123,6 +103,47 @@ public class HibernateMagazineDao implements MagazineDao {
 			session.close();
 		}
 
+	}
+
+	@Override
+	public void delete(Integer id) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			String hql = "DELETE FROM Magazine M WHERE M.id = :id";
+			Query query = session.createQuery(hql);
+			query.setParameter("id", id);
+			query.executeUpdate();
+			tx.commit();
+		} catch (RuntimeException e) {
+			if (tx != null)
+				tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+
+		
+	}
+
+	@Override
+	public Entity findById(Integer id) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Criteria cr = session.createCriteria(Magazine.class);
+			Magazine m = (Magazine) cr.add(Restrictions.eq("id", id)).uniqueResult();
+			tx.commit();
+			return m;
+		} catch (RuntimeException e) {
+			if (tx == null)
+				tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
 	}
 
 }

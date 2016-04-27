@@ -36,9 +36,6 @@ public class LibraryService {
 	private LoanDao loanDao;
 	private PublicationDao publicationDao;
 
-	/*
-	 * public LibraryService(BookDao bookDao) { this.bookDao = bookDao; }
-	 */
 
 	@Autowired
 	public LibraryService(BookDao bookDao, MemberDao memberDao, MagazineDao magazineDao, LoanDao loanDao,
@@ -58,10 +55,8 @@ public class LibraryService {
 
 	}
 
-	public void unregisterBook(String isbn) {
-		Book b = new Book();
-		b.setIsbn(isbn);
-		bookDao.delete(b);
+	public void unregisterBook(Integer id) {
+		bookDao.delete(id);
 	}
 
 	public void updateBookRegistrations(String isbn, String title) {
@@ -83,10 +78,8 @@ public class LibraryService {
 		memberDao.insert(member);
 	}
 
-	public void unregisterMember(String email) {
-		Member member = new Member();
-		member.setEmail(email);
-		memberDao.delete(member);
+	public void unregisterMember(Integer id) {
+		memberDao.delete(id);
 	}
 
 	public void listRegisteredMembers() {
@@ -104,14 +97,12 @@ public class LibraryService {
 
 	}
 
-	public void unregisterMagazine(String issn) {
-		Magazine m = new Magazine();
-		m.setIssn(issn);
-		magzineDao.delete(m);
+	public void unregisterMagazine(Integer id) {
+		magzineDao.delete(id);
 	}
 
 	public void updateMagazineRegistrations(String issn, String title) {
-	
+
 		magzineDao.updateMagazineTitle(issn, title);
 	}
 
@@ -176,12 +167,13 @@ public class LibraryService {
 		}
 		return list;
 	}
-	public Book findBookByIsbn(String isbn){
+
+	public Book findBookByIsbn(String isbn) {
 		return bookDao.findByIsbn(isbn);
 	}
 
 	public Book findBookById(Integer id) {
-		return bookDao.findById(id);
+		return (Book) bookDao.findById(id);
 	}
 
 }

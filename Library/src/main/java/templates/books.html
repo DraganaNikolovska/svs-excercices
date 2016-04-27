@@ -11,7 +11,7 @@
 
 <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
 	th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
-<link href="../static/css/master.css" th:href="@{css/master.css}"
+<link href="../static/css/master.css" th:href="@{/css/master.css}"
 	rel="stylesheet" media="screen" />
 
 </head>
@@ -64,17 +64,11 @@
 
 						</div>
 						 <div class="col-md-2 col-md-offset-1">
-							<a th:href="@{/books/delete/{isbn}(isbn=${book.isbn})}">
+							<a th:href="@{/books/delete/{id}(id=${book.id})}">
 							<button	class="btn btn-danger">
 									<span class="glyphicon glyphicon-trash"></span>
 								</button> </a>
 						</div> 
-						<!-- <div class="col-md-2 col-md-offset-1">
-							<a th:href="@{/delete?isbn={isbn}(isbn=${book.isbn})}">
-							<button	class="btn btn-danger">
-									<span class="glyphicon glyphicon-trash"></span>
-								</button> </a>
-						</div> -->
 					</div>
 					<div class="panel-footer" align="center">
 						<a th:href="@{/books/{id}(id=${book.id})}">Edit</a>

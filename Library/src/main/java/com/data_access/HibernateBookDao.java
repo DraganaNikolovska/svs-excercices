@@ -44,35 +44,13 @@ public class HibernateBookDao implements BookDao {
 		}
 	}
 
-
-	public void delete(Object uniqueValue) {
-		Session session = sessionFactory.openSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			String hql = "DELETE FROM Book B WHERE B.isbn = :isbn";
-			Query query = session.createQuery(hql);
-			query.setParameter("isbn", uniqueValue);
-			query.executeUpdate();
-			tx.commit();
-		} catch (RuntimeException e) {
-			if (tx != null)
-				tx.rollback();
-			throw e;
-		} finally {
-
-			session.close();
-		}
-
-	}
-
 	public List<Entity> listAll() {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		List<Entity> books = new ArrayList<Entity>();
 		try {
 			tx = session.beginTransaction();
-			String hql = "FROM Book";
+			String hql = "FROM Book b ORDER BY b.id";
 			Query query = session.createQuery(hql);
 			books = query.list();
 			tx.commit();
@@ -130,7 +108,27 @@ public class HibernateBookDao implements BookDao {
 	}
 
 	@Override
-	public Book findById(Integer id) {
+	public void delete(Integer id) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			String hql = "DELETE FROM Book B WHERE B.id = :id";
+			Query query = session.createQuery(hql);
+			query.setParameter("id", id);
+			query.executeUpdate();
+			tx.commit();
+		} catch (RuntimeException e) {
+			if (tx != null)
+				tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+	}
+
+	@Override
+	public Entity findById(Integer id) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		try {

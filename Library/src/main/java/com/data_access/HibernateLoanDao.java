@@ -42,36 +42,13 @@ public class HibernateLoanDao implements LoanDao {
 
 	}
 
-	public void delete(Object uniqueValue) {
-		Session session = sessionFactory.openSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			String hql = "DELETE FROM Loan l WHERE l.id = :id";
-			Query query = session.createQuery(hql);
-			query.setParameter("id", uniqueValue);
-			query.executeUpdate();
-			tx.commit();
-		} catch (RuntimeException e) {
-			if (tx != null)
-				tx.rollback();
-			throw e;
-		} finally {
-			session.close();
-		}
-	}
-
-	public void update(Entity entity) {
-		// behavior of this method is currently undefined
-	}
-
 	public List<Entity> listAll() {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		List<Entity> loans = new ArrayList<Entity>();
 		try {
 			tx = session.beginTransaction();
-			String hql = "FROM Loan";
+			String hql = "FROM Loan l ORDER BY l.id";
 			Query query = session.createQuery(hql);
 			loans = query.list();
 			tx.commit();
@@ -103,5 +80,26 @@ public class HibernateLoanDao implements LoanDao {
 		} finally {
 			session.close();
 		}
+	}
+
+	@Override
+	public void delete(Integer id) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			String hql = "DELETE FROM Loan l WHERE l.id = :id";
+			Query query = session.createQuery(hql);
+			query.setParameter("id", id);
+			query.executeUpdate();
+			tx.commit();
+		} catch (RuntimeException e) {
+			if (tx != null)
+				tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+		
 	}
 }

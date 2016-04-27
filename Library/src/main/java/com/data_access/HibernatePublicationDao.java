@@ -30,7 +30,7 @@ public class HibernatePublicationDao implements PublicationDao {
 		List<Publication> publications = new ArrayList<Publication>();
 		try {
 			tx = session.beginTransaction();
-			String hql = "FROM Publication";
+			String hql = "FROM Publication p ORDERY BY p.id";
 			Query query = session.createQuery(hql);		
 			publications = query.list();		
 			tx.commit();

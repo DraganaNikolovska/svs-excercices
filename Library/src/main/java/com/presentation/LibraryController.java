@@ -80,14 +80,14 @@ public class LibraryController {
 				service.updateBookRegistrations(issn, title);
 				break;
 			case "8":
-				System.out.println("Enter book`s isbn");
-				isbn = keyBoardScanner.nextLine();
-				service.unregisterBook(isbn);
+				System.out.println("Enter book`s id");
+				id = keyBoardScanner.nextInt();
+				service.unregisterBook(id);
 				break;
 			case "9":
-				System.out.println("Enter magazine`s issn");
-				issn = keyBoardScanner.nextLine();
-				service.unregisterMagazine(issn);
+				System.out.println("Enter magazine`s id");
+				id = keyBoardScanner.nextInt();
+				service.unregisterMagazine(id);
 				break;
 			case "10":
 				System.out.println("Enter loan`s id");
@@ -95,9 +95,9 @@ public class LibraryController {
 				service.deleteLoan(id);
 				break;
 			case "11":
-				System.out.println("Enter user`s email");
-				email = keyBoardScanner.nextLine();
-				service.unregisterMember(email);
+				System.out.println("Enter user`s id");
+				id = keyBoardScanner.nextInt();
+				service.unregisterMember(id);
 				break;
 			case "12":
 				service.listRegisteredBooks();
@@ -112,9 +112,7 @@ public class LibraryController {
 				service.listRegisteredMembers();
 				break;
 			case "16":
-				System.out.println("16 start");
 				service.listRegisteredPublications();
-				System.out.println("16 end");
 				break;
 			default:
 				break;

@@ -43,21 +43,7 @@ public class HibernateMemberDao implements MemberDao {
 	}
 
 	public void delete(Object uniqueValue) {
-		Session session = sessionFactory.openSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			Criteria cr = session.createCriteria(Member.class);
-		 	Member x = (Member) cr.add(Restrictions.eq("email", uniqueValue)).uniqueResult();
-			session.delete(x);
-			tx.commit();
-		} catch (RuntimeException e) {
-			if (tx == null)
-				tx.rollback();
-			throw e;
-		} finally {
-			session.close();
-		}
+		
 
 	}
 
@@ -67,7 +53,7 @@ public class HibernateMemberDao implements MemberDao {
 		List<Entity> members = new ArrayList<Entity>();
 		try {
 			tx = session.beginTransaction();
-			String hql = "FROM Member";
+			String hql = "FROM Member m ORDER BY m.id";
 			Query query = session.createQuery(hql);
 			members = query.list();
 			tx.commit();
@@ -81,12 +67,6 @@ public class HibernateMemberDao implements MemberDao {
 
 		return members;
 	}
-
-	public void update(Entity entity) {
-		// the behavior of this method is currently undefined
-
-	}
-
 	@Override
 	public Member findByEmail(String email) {
 		Session session = sessionFactory.openSession();
@@ -95,6 +75,45 @@ public class HibernateMemberDao implements MemberDao {
 			tx = session.beginTransaction();
 			Criteria cr = session.createCriteria(Member.class);
 			Member m = (Member) cr.add(Restrictions.eq("email", email)).uniqueResult();
+			tx.commit();
+			return m;
+		} catch (RuntimeException e) {
+			if (tx == null)
+				tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+	}
+
+	@Override
+	public void delete(Integer id) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Criteria cr = session.createCriteria(Member.class);
+		 	Member x = (Member) cr.add(Restrictions.eq("id", id)).uniqueResult();
+			session.delete(x);
+			tx.commit();
+		} catch (RuntimeException e) {
+			if (tx == null)
+				tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+		
+	}
+
+	@Override
+	public Entity findById(Integer id) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Criteria cr = session.createCriteria(Member.class);
+			Member m = (Member) cr.add(Restrictions.eq("id", id)).uniqueResult();
 			tx.commit();
 			return m;
 		} catch (RuntimeException e) {

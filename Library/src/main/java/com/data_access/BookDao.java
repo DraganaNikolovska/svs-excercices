@@ -8,6 +8,5 @@ public interface BookDao extends Dao{
 	
 	public void updateBookTitle(String isbn, String title);
 
-	public Book findById(Integer id);
 	
 }

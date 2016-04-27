@@ -26,6 +26,7 @@ public class BookController {
 
 	@ModelAttribute("books")
 	public List<Entity> books() {
+		System.out.println("Books call");
 		return libraryService.listRegisteredBooks();
 	}
 
@@ -41,7 +42,6 @@ public class BookController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String registerOrUpdateBook(@ModelAttribute("book") Book book) {
-
 		if (libraryService.findBookByIsbn(book.getIsbn()) == null) {
 			libraryService.registerBook(book.getIsbn(), book.getTitle());
 		} else {
@@ -53,22 +53,14 @@ public class BookController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String editBook(@PathVariable("id") Integer id, Model model) {
 		final Book book = libraryService.findBookById(id);
-		System.out.println("--------" + book);
 		model.addAttribute("book", book);
 		return "books";
 	}
 
-	@RequestMapping(value = "/delete/{isbn}", method = RequestMethod.POST)
-	public String deleteBook(@PathVariable("isbn") String isbn) {
-		libraryService.unregisterBook(isbn);
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	public String deleteBook(@PathVariable("id") Integer id) {
+		libraryService.unregisterBook(id);
 		return "redirect:/books";
 	}
-
-	/*
-	 * @RequestMapping(value = "/delete", method = RequestMethod.POST) public
-	 * String unregisterBook(@RequestParam("isbn") String isbn) {
-	 * System.out.println("isbn == " + isbn);
-	 * libraryService.unregisterBook(isbn); return "redirect:/books"; }
-	 */
 
 }
