@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.data_access.HibernateBookDao;
 import com.domain.Book;
@@ -56,5 +57,20 @@ public class BookController {
 		model.addAttribute("book", book);
 		return "books";
 	}
+
+	@RequestMapping(value = "/delete/{isbn}", method = RequestMethod.POST)
+	public String deleteBook(@PathVariable("isbn") String isbn, Model model) {
+		System.out.println("in CONTROLLER!!!!!!!!");
+		libraryService.unregisterBook(isbn);
+		model.addAttribute("book", book());
+		return "books";
+	}
+
+	/*
+	 * @RequestMapping(value = "/delete", method = RequestMethod.POST) public
+	 * String unregisterBook(@RequestParam("isbn") String isbn) {
+	 * System.out.println("isbn == " + isbn);
+	 * libraryService.unregisterBook(isbn); return "redirect:/books"; }
+	 */
 
 }

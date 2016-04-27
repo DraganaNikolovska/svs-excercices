@@ -23,8 +23,8 @@
 			<form class="form-horizontal col-sm-6" action="#"
 				th:action="@{/books}" th:object="${book}" method="post">
 				<div class="form-group">
-					<input type="hidden" th:field="*{id}" /> <label for="isbn"
-						class="col-sm-2 control-label">ISBN</label>
+					<input type="hidden" th:field="*{id}" /> 
+					<label for="isbn" class="col-sm-2 control-label">ISBN</label>
 					<div class="col-sm-10">
 						<input type="text" th:field="*{isbn}" placeholder="ISBN"
 							class="form-control" />
@@ -39,8 +39,8 @@
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-warning">Register
-							or update book registration</button>
+						<button type="submit" class="btn btn-warning">Register or
+							update book registration</button>
 					</div>
 				</div>
 			</form>
@@ -51,17 +51,30 @@
 			<tr th:each="book: ${books}">
 
 				<div class="panel panel-success col-md-3">
-
 					<div class="panel-body">
-						<div>
-							<span style="font-weight: bold">Title: </span> <span
-								th:text="${book.title}"></span>
-						</div>
-						<div>
-							<span style="font-weight: bold">ISBN: </span> <span
-								th:text="${book.isbn}"></span>
-						</div>
+						<div class="col-md-9">
+							<div>
+								<span style="font-weight: bold">Title: </span> <span
+									th:text="${book.title}"></span>
+							</div>
+							<div>
+								<span style="font-weight: bold">ISBN: </span> <span
+									th:text="${book.isbn}"></span>
+							</div>
 
+						</div>
+						 <div class="col-md-2 col-md-offset-1">
+							<a th:href="@{/books/delete/{isbn}(isbn=${book.isbn})}">
+							<button	class="btn btn-danger">
+									<span class="glyphicon glyphicon-trash"></span>
+								</button> </a>
+						</div> 
+						<!-- <div class="col-md-2 col-md-offset-1">
+							<a th:href="@{/delete?isbn={isbn}(isbn=${book.isbn})}">
+							<button	class="btn btn-danger">
+									<span class="glyphicon glyphicon-trash"></span>
+								</button> </a>
+						</div> -->
 					</div>
 					<div class="panel-footer" align="center">
 						<a th:href="@{/books/{id}(id=${book.id})}">Edit</a>
