@@ -11,6 +11,7 @@
 
 <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
 	th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+<script src="../static/js/site.js" th:src="@{/js/site.js}"></script>
 <link href="../static/css/master.css" th:href="@{/css/master.css}"
 	rel="stylesheet" media="screen" />
 
@@ -50,7 +51,7 @@
 		<table>
 			<tr th:each="book: ${books}">
 
-				<div class="panel panel-success col-md-3">
+				<div class="panel panel-success col-md-3 book">
 					<div class="panel-body">
 						<div class="col-md-9">
 							<div>
@@ -64,10 +65,10 @@
 
 						</div>
 						 <div class="col-md-2 col-md-offset-1">
-							<a th:href="@{/books/delete/{id}(id=${book.id})}">
-							<button	class="btn btn-danger">
+							<!-- <a th:href="@{/books/delete/{id}(id=${book.id})}"> -->
+							<button	class="btn btn-danger deleteBook" th:attr="data-id=${book.id}">
 									<span class="glyphicon glyphicon-trash"></span>
-								</button> </a>
+								</button> <!-- </a> -->
 						</div> 
 					</div>
 					<div class="panel-footer" align="center">
