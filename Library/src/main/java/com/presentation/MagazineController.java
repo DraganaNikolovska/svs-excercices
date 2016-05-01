@@ -4,10 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+
 import com.domain.Entity;
+import com.domain.Magazine;
 import com.services.LibraryService;
 import com.data_access.HibernateMagazineDao;
 
@@ -16,7 +21,7 @@ import com.data_access.HibernateMagazineDao;
 public class MagazineController {
 
 	@Autowired
-	private LibraryService service;
+	private LibraryService libraryService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	String magazines() {
@@ -25,7 +30,28 @@ public class MagazineController {
 
 	@ModelAttribute("magazines")
 	public List<Entity> listMagazines() {
-		return service.listRegisteredMagazines();
+		return libraryService.listRegisteredMagazines();
 	}
 
+	@ModelAttribute("magazine")
+	Magazine magazine() {
+		return new Magazine();
+	}
+
+	@RequestMapping(method = RequestMethod.POST)
+	public String registerOrUpdateMagazine(@ModelAttribute("magazine") Magazine magazine) {
+		if (libraryService.findMagazineByIssn(magazine.getIssn())== null) {
+			libraryService.registerMagazine(magazine.getIssn(), magazine.getTitle());
+		} else {
+			libraryService.updateMagazineRegistrations(magazine.getIssn(), magazine.getTitle());
+		}
+		return "redirect:/magazines";
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public String editMagazine(@PathVariable("id") Integer id, Model model){
+		Magazine magazine = libraryService.findMagazineById(id);
+		model.addAttribute("magazine", magazine);
+		return "magazines";
+	}
 }

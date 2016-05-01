@@ -36,7 +36,6 @@ public class LibraryService {
 	private LoanDao loanDao;
 	private PublicationDao publicationDao;
 
-
 	@Autowired
 	public LibraryService(BookDao bookDao, MemberDao memberDao, MagazineDao magazineDao, LoanDao loanDao,
 			PublicationDao publicationDao) {
@@ -176,4 +175,18 @@ public class LibraryService {
 		return (Book) bookDao.findById(id);
 	}
 
+	public Magazine findMagazineById(Integer id) {
+		Magazine m = (Magazine) magzineDao.findById(id);
+		return m;
+	}
+	public Magazine findMagazineByIssn(String issn) {
+		Magazine m = (Magazine) magzineDao.fineByIssn(issn);
+		return m;
+	}
+	public Publication findPublication(Integer id){
+		return publicationDao.getPublication(id);
+	}
+	public Member findMemberByEmail(String email){
+		return memberDao.findByEmail(email);
+	}
 }

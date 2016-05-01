@@ -132,6 +132,7 @@ public class HibernateMagazineDao implements MagazineDao {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		try {
+			System.out.println("id = " + id);
 			tx = session.beginTransaction();
 			Criteria cr = session.createCriteria(Magazine.class);
 			Magazine m = (Magazine) cr.add(Restrictions.eq("id", id)).uniqueResult();

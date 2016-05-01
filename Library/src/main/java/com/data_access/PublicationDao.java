@@ -7,4 +7,5 @@ import com.domain.Publication;
 public interface PublicationDao {
 
 	public List<Publication> listAll();
+	public Publication getPublication(Integer id);
 }

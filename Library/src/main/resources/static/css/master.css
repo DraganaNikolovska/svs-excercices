@@ -12,10 +12,31 @@ a {
 }
 
 li {
-	
 	border-radius: 4px;
 }
 
 .panel-footer {
 	margin-bottom: 4%;
+}
+
+.panel-header {
+	text-align: center;
+	font-size: large;
+	margin-top: 1%;
+	background-color: #f5f5f5;
+}
+
+#btn_lend_book {
+	margin-right: 3%;
+}
+
+.lendBook {
+	font-size: large;
+	background-color: beige;
+}
+
+.btn_edit {
+	margin-bottom: 3%;
+	font-size: large;
+	background-color: beige;
 }

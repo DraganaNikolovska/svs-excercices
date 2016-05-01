@@ -11,20 +11,69 @@
 
 <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
 	th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
-<link href="../static/css/master.css" th:href="@{css/master.css}"
+<script src="../static/js/site.js" th:src="@{/js/site.js}"></script>
+<link href="../static/css/master.css" th:href="@{/css/master.css}"
 	rel="stylesheet" media="screen" />
 
 </head>
 <body>
 	<div class="container">
 		<h3 align="center">Magazines</h3>
+
+		<div class="row">
+			<form class="form-horizontal col-sm-6" action="#"
+				th:action="@{/magazines}" th:object="${magazine}" method="post">
+				<div class="form-group">
+					<input type="hidden" th:field="*{id}" /> 
+					<label for="issn" class="col-sm-2 control-label">ISSN</label>
+					<div class="col-sm-10">
+						<input type="text" th:field="*{issn}" placeholder="ISBN"
+							class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="title" class="col-sm-2 control-label">Title</label>
+					<div class="col-sm-10">
+						<input type="text" th:field="*{title}" placeholder="Title"
+							class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-warning">Register or
+							update magazine registration</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+
 		<table>
 			<tr th:each="magazine: ${magazines}">
-				<td><a th:href="@{/magazines/{id}(id=${magazine.id})}">Edit</a></td>
-				<td>|</td>
-				<td th:text="${magazine.issn}">ISBN</td>
-				<td>|</td>
-				<td th:text="${magazine.title}">Title</td>
+
+				<div class="panel panel-success col-md-3 magazine">
+					<div class="panel-body">
+						<div class="col-md-9">
+							<div>
+								<span style="font-weight: bold">Title: </span> <span
+									th:text="${magazine.title}"></span>
+							</div>
+							<div>
+								<span style="font-weight: bold">ISSN: </span> <span
+									th:text="${magazine.issn}"></span>
+							</div>
+
+						</div>
+						 <div class="col-md-2 col-md-offset-1">
+							<button	class="btn btn-danger deleteMagazine" th:attr="data-id=${magazine.id}">
+									<span class="glyphicon glyphicon-trash"></span>
+								</button> 
+						</div> 
+					</div>
+					<div class="panel-footer" align="center">
+						<a th:href="@{/magazines/{id}(id=${magazine.id})}">Edit</a>
+					</div>
+				</div>
 			</tr>
 		</table>
 	</div>

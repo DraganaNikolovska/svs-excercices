@@ -114,6 +114,9 @@ public class LibraryController {
 			case "16":
 				service.listRegisteredPublications();
 				break;
+			case "17":
+				service.findMagazineById(5);
+				break;
 			default:
 				break;
 			}

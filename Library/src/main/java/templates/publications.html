@@ -11,20 +11,24 @@
 
 <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
 	th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
-<link href="../static/css/master.css" th:href="@{css/master.css}"
+<script src="../static/js/site.js" th:src="@{/js/site.js}"></script>
+<link href="../static/css/master.css" th:href="@{/css/master.css}"
 	rel="stylesheet" media="screen" />
-
+<style>
+li {
+	background-color: #fff;
+	width: 30%;
+	padding: 1%;
+}
+</style>
 </head>
 <body>
 	<div class="container">
 		<h3 align="center">Publications</h3>
-		<table>
-			<tr th:each="publication: ${publications}">
-				<td><a th:href="@{/publication/{id}(id=${publication.id})}">Edit</a></td>
-				<td>|</td>
-				<td th:text="${publication.title}">Title</td>
-			</tr>
-		</table>
+		<ul th:each="publication: ${publications}">
+			<li><span style="font-weight: bold">Title: </span> <span
+				th:text="${publication.title}"></span></li>
+		</ul>
 	</div>
 </body>
 </html>
