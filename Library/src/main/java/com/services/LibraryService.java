@@ -81,11 +81,12 @@ public class LibraryService {
 		memberDao.delete(id);
 	}
 
-	public void listRegisteredMembers() {
+	public List<Entity> listRegisteredMembers() {
 		ArrayList<Entity> members = (ArrayList<Entity>) memberDao.listAll();
 		for (Entity entity : members) {
 			System.out.println((Member) entity);
 		}
+		return members;
 	}
 
 	public void registerMagazine(String issn, String title) {
@@ -113,11 +114,12 @@ public class LibraryService {
 		return magazines;
 	}
 
-	public void listRegisteredLoans() {
+	public List<Entity> listRegisteredLoans() {
 		ArrayList<Entity> loans = (ArrayList<Entity>) loanDao.listAll();
 		for (Entity entity : loans) {
 			System.out.println((Loan) entity);
 		}
+		return loans;
 	}
 
 	public void deleteLoan(Integer loanId) {

@@ -36,7 +36,6 @@ public class BookController {
 
 	@ModelAttribute("books")
 	public List<Entity> books() {
-		System.out.println("Books call");
 		return libraryService.listRegisteredBooks();
 	}
 
@@ -87,9 +86,9 @@ public class BookController {
 		return "redirect:/books";
 	}
 	
+	
 	@ExceptionHandler(value = NonExistingMember.class)
-	public String handleNonExistingMember(){
-		
+	public String handleNonExistingMember(){		
 		return "NonExistingMember";
 	}
 }

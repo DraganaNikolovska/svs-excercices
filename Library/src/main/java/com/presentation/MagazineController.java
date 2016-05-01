@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 import com.domain.Entity;
+import com.domain.LoanModel;
 import com.domain.Magazine;
 import com.services.LibraryService;
+
+import exceptions.NonExistingMember;
+
 import com.data_access.HibernateMagazineDao;
 
 @Controller
@@ -53,5 +57,18 @@ public class MagazineController {
 		Magazine magazine = libraryService.findMagazineById(id);
 		model.addAttribute("magazine", magazine);
 		return "magazines";
+	}
+	@ModelAttribute("loan")
+	LoanModel getLoan() {
+		return new LoanModel();
+	}
+	
+	@RequestMapping(value = "/lend", method = RequestMethod.POST)
+	public String lend(@ModelAttribute("loan") LoanModel loan) {
+		if(libraryService.findMemberByEmail(loan.getMemberEmail()) == null){
+			throw new NonExistingMember(loan.getMemberEmail());
+		}
+		libraryService.lendMagazine(loan.getMemberEmail(), loan.getIsbn(), loan.getStartDate(), loan.getEndDate());	
+		return "redirect:/magazines";
 	}
 }

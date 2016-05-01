@@ -30,11 +30,17 @@ $(function() {
 		$('#modal_lend_book').modal('show');
 	});
 
+	$(document).on('click', '.lendMagazine', function() {
+		$magazinePanel = $(this).parents(".magazine").eq(0);
+		var ISBN = $magazinePanel.find('.isbn').text();
+		var title = $magazinePanel.find('.title').text();
+		$(".modal-title").text("Lend " + title);
+		$("#modal_magazine_id").val(ISBN);
+		$('#modal_lend_magazine').modal('show');
+	});
+	
 	$('.date').datetimepicker();
 
-	/*$(document).on('click', '#btn_lend_book', function() {
-		$('#modal_form_lend')[0].reset();
-		alert("click");
-	});*/
+
 
 })

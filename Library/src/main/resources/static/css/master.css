@@ -26,11 +26,11 @@ li {
 	background-color: #f5f5f5;
 }
 
-#btn_lend_book {
+#btn_lend_book, #btn_lend_magazine {
 	margin-right: 3%;
 }
 
-.lendBook {
+.lendBook, .lendMagazine{
 	font-size: large;
 	background-color: beige;
 }
