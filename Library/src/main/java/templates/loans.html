@@ -36,7 +36,7 @@
 	rel="stylesheet" media="screen" />
 
 <style>
-li {
+#loans_list li {
 	background-color: #fff;
 	width: 30%;
 	padding: 1%;
@@ -51,9 +51,9 @@ span {
 </head>
 <body>
 	<div class="container">
-		<h3 align="center">Loans</h3>
+		<div th:replace="fragments/header :: header">&nbsp;</div>
 
-		<ul th:each="loan: ${loans}">
+		<ul th:each="loan: ${loans}" id="loans_list">
 			<li>
 				<div>
 					From: <span th:text="${loan.member}">Member</span>

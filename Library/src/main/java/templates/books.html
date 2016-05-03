@@ -37,9 +37,9 @@
 
 </head>
 <body>
-	<div class="container">
-		<h3 align="center">Books</h3>
 
+	<div class="container">
+		<div th:replace="fragments/header :: header">&nbsp;</div>
 		<div class="row">
 			<form class="form-horizontal col-sm-6" action="#"
 				th:action="@{/books}" th:object="${book}" method="post">
@@ -98,10 +98,11 @@
 
 						</div>
 					</div>
-					
-						<a th:href="@{/books/{id}(id=${book.id})}"> <button
-								class="btn btn-default btn-block btn_edit">Edit</button></a>
-					
+
+					<a th:href="@{/books/{id}(id=${book.id})}">
+						<button class="btn btn-default btn-block btn_edit">Edit</button>
+					</a>
+
 				</div>
 			</tr>
 		</table>
@@ -120,7 +121,8 @@
 
 
 						<form class="form-horizontal" action="#"
-							th:action="@{/books/lend}" th:object="${loan}" method="post" id="modal_form_lend">
+							th:action="@{/books/lend}" th:object="${loan}" method="post"
+							id="modal_form_lend">
 
 							<input type="hidden" id="modal_book_id" value=""
 								th:field="*{isbn}" />

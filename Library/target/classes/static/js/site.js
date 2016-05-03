@@ -21,6 +21,27 @@ $(function() {
 
 	});
 
+	$(document).on('click', '.deleteMagazine', function() {
+		magazineID = $(this).attr("data-id");
+		$magazinePanel = $(this).parents(".magazine").eq(0);
+		$.ajax({
+			method : "POST",
+			url : "/magazines/delete",
+			data : {
+				'magazine_id' : magazineID
+			},
+			dataType : "json",
+			processData : true,
+			success : function(response) {
+				$magazinePanel.remove();
+			},
+			error : function(error) {
+				alert("error !! " + error);
+			}
+		});
+
+	});
+
 	$(document).on('click', '.lendBook', function() {
 		$bookPanel = $(this).parents(".book").eq(0);
 		var ISBN = $bookPanel.find('.isbn').text();
@@ -40,7 +61,5 @@ $(function() {
 	});
 	
 	$('.date').datetimepicker();
-
-
 
 })

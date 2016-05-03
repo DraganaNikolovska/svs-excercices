@@ -36,10 +36,14 @@
 	rel="stylesheet" media="screen" />
 
 <style>
-li {
+#members_list li {
 	background-color: #fff;
 	width: 30%;
 	padding: 1%;
+}
+
+button {
+	margin-left: 4%;
 }
 </style>
 
@@ -47,12 +51,19 @@ li {
 </head>
 <body>
 	<div class="container">
-		<h3 align="center">Members</h3>
+		<div th:replace="fragments/header :: header">&nbsp;</div>
 
-		<ul th:each="member: ${members}">
-			<li><span th:text="${member.name}">Name</span> <span
-				th:text="${member.email}">Email</span></li>
+		<ul th:each="member: ${members}" id="members_list">
+			<li>
+			<span th:text="${member.name}">Name</span>
+			<span> - </span>
+			 <span th:text="${member.email}">Email</span></li>
 		</ul>
+
+		<a th:href="@{/members/register}">
+			<button class="btn btn-warning">Register new member</button>
+		</a>
+
 	</div>
 </body>
 </html>

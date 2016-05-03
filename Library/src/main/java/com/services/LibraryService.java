@@ -191,4 +191,10 @@ public class LibraryService {
 	public Member findMemberByEmail(String email){
 		return memberDao.findByEmail(email);
 	}
+
+	public void unregisterLoan(Integer publication_id) {
+		Publication p = publicationDao.getPublication(publication_id);
+		loanDao.unregisterLoan(p);
+		
+	}
 }

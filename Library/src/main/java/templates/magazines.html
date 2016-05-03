@@ -37,9 +37,9 @@
 
 </head>
 <body>
+	
 	<div class="container">
-		<h3 align="center">Magazines</h3>
-
+	<div th:replace="fragments/header :: header">&nbsp;</div>
 		<div class="row">
 			<form class="form-horizontal col-sm-6" action="#"
 				th:action="@{/magazines}" th:object="${magazine}" method="post">
@@ -47,7 +47,7 @@
 					<input type="hidden" th:field="*{id}" /> <label for="issn"
 						class="col-sm-2 control-label">ISSN</label>
 					<div class="col-sm-10">
-						<input type="text" th:field="*{issn}" placeholder="ISBN"
+						<input type="text" th:field="*{issn}" placeholder="ISSN"
 							class="form-control" />
 					</div>
 				</div>
@@ -74,18 +74,19 @@
 				<div class="panel panel-success col-md-3 magazine">
 					<div class="panel panel-header">
 						<button class="lendMagazine btn btn-default btn-block">
-							<span class="glyphicon glyphicon-book"> </span> Lend this magazine
+							<span class="glyphicon glyphicon-book"> </span> Lend this
+							magazine
 						</button>
 					</div>
 					<div class="panel-body">
 						<div class="col-md-9">
 							<div>
 								<span style="font-weight: bold">Title: </span> <span
-									th:text="${magazine.title}" class="title" ></span>
+									th:text="${magazine.title}" class="title"></span>
 							</div>
 							<div>
 								<span style="font-weight: bold">ISSN: </span> <span
-									th:text="${magazine.issn}" class="isbn" ></span>
+									th:text="${magazine.issn}" class="isbn"></span>
 							</div>
 
 						</div>

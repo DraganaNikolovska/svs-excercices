@@ -15,7 +15,7 @@
 <link href="../static/css/master.css" th:href="@{/css/master.css}"
 	rel="stylesheet" media="screen" />
 <style>
-li {
+#publication_list li {
 	background-color: #fff;
 	width: 30%;
 	padding: 1%;
@@ -23,9 +23,11 @@ li {
 </style>
 </head>
 <body>
+
+	
 	<div class="container">
-		<h3 align="center">Publications</h3>
-		<ul th:each="publication: ${publications}">
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+		<ul th:each="publication: ${publications}" id="publication_list">
 			<li><span style="font-weight: bold">Title: </span> <span
 				th:text="${publication.title}"></span></li>
 		</ul>

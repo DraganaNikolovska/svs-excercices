@@ -45,7 +45,7 @@ public class BookController {
 	}
 
 	@ModelAttribute("book")
-	Book book() {
+	public Book setBookAttribute() {
 		return new Book();
 	}
 
@@ -73,7 +73,7 @@ public class BookController {
 	}
 
 	@ModelAttribute("loan")
-	LoanModel getLoan() {
+	public LoanModel setLoanAttribute() {
 		return new LoanModel();
 	}
 

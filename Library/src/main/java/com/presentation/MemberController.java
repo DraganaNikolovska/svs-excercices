@@ -20,12 +20,12 @@ public class MemberController {
 	private LibraryService libraryService;
 
 	@ModelAttribute("member")
-	Member member() {
+	public Member setMemberAttribute() {
 		return new Member();
 	}
 
 	@ModelAttribute("members")
-	public List<Entity> members() {
+	public List<Entity> setMembersAttribute() {
 		return libraryService.listRegisteredMembers();
 	}
 
@@ -35,14 +35,14 @@ public class MemberController {
 	}
 
 	@RequestMapping(value="/register", method = RequestMethod.GET)
-	public String m(){
+	public String showRegistrationForm(){
 		return "members_registration";
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@ModelAttribute Member member) {
 		libraryService.registerMember(member.getName(), member.getEmail());
-		return "redirect:/books";
+		return "redirect:/members";
 	}
 
 }

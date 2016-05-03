@@ -15,6 +15,8 @@ import org.springframework.stereotype.Repository;
 import com.domain.Entity;
 import com.domain.Loan;
 import com.domain.Member;
+import com.domain.Publication;
+
 @Repository
 public class HibernateLoanDao implements LoanDao {
 	private SessionFactory sessionFactory;
@@ -100,6 +102,27 @@ public class HibernateLoanDao implements LoanDao {
 		} finally {
 			session.close();
 		}
-		
+
+	}
+
+	@Override
+	public void unregisterLoan(Publication publication) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			String hql = "DELETE FROM Loan l WHERE l.publication = :publication";
+			Query query = session.createQuery(hql);
+			query.setParameter("publication", publication);
+			query.executeUpdate();
+			tx.commit();
+		} catch (RuntimeException e) {
+			if (tx != null)
+				tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+
 	}
 }
