@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Twitter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link
+	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}"
+	rel="stylesheet" media="screen" />
+
+<script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+	th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+<link href="../static/css/master.css" th:href="@{/css/master.css}"
+	rel="stylesheet" media="screen" />
+<style>
+table {
+	width: 23%;
+}
+td{
+    padding: 4%;
+}
+tr {
+	background-color: white;
+	border-radius: 2%;
+	border: 2px solid green;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div th:with="currentUser=${#httpServletRequest.userPrincipal?.name}">
+			<div th:if="${currentUser != null}">
+				<h2>
+					Welcome <span th:text="${currentUser}">some user</span> to twitter
+					application
+				</h2>
+				<form th:action="@{/logout}" method="post">
+					<button class="btn btn-success" type="submit">Log out</button>
+				</form>
+
+			</div>
+		</div>
+
+		<h3>Tweets from everyone</h3>
+		<table>
+			<tr th:each="tweet: ${tweets}">
+				<td th:text="${tweet.message}">message</td>
+				<td th:text="${tweet.date}">date</td>
+			</tr>
+		</table>
+
+
+	</div>
+</body>
+</html>

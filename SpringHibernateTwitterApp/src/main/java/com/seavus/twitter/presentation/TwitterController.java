@@ -47,7 +47,7 @@ public class TwitterController {
 				twitterService.tweetMessage(message, username);
 				break;
 			case LIST_TWEETS:
-				twitterService.listAll();
+				twitterService.listAllTweets();
 				break;
 			case NEW_USER:
 				System.out.println("Enter username");
