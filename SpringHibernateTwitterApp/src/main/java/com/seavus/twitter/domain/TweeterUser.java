@@ -1,5 +1,6 @@
 package com.seavus.twitter.domain;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -10,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tweeter_user")
-public class TweeterUser {
+public class TweeterUser implements Serializable{
 
 	@OneToMany(mappedBy = "tweeterUser")
 	private Set<Tweet> tweets;
@@ -23,7 +24,11 @@ public class TweeterUser {
 	public TweeterUser() {
 
 	}
-
+	public TweeterUser(TweeterUser user){
+		this.name = user.getName();
+		this.password = user.getPassword();
+		this.id = user.getId();
+	}
 	public String getName() {
 		return name;
 	}
@@ -51,4 +56,5 @@ public class TweeterUser {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	private static final long serialVersionUID = 2738859149330833739L;
 }

@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import com.seavus.twitter.data_access.TweetDao;
@@ -19,6 +22,8 @@ public class TwitterService {
 
 	private TweetDao tweeterDao;
 	private UserDao userDao;
+	
+	
 
 	@Autowired
 	public TwitterService(TweetDao messageDao, UserDao userDao) {

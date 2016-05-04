@@ -6,21 +6,18 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+import com.seavus.twitter.services.UserRepositoryUserDetailsService;
 
 @Configuration
 @EnableWebMvcSecurity
 public class WebSequrityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth )throws Exception{
-		auth.inMemoryAuthentication()
-		.withUser("admin")
-		.password("password")
-		.roles("ADMIN", "USER")
-		.and()
-		.withUser("user")
-		.password("password")
-		.roles("USER");
+	public void configureGlobal(AuthenticationManagerBuilder auth,
+			UserDetailsService userDetailsService )throws Exception{
+		auth.userDetailsService(userDetailsService);
 	}
 	
 	@Override
