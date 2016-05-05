@@ -2,3 +2,26 @@ body {
 	background-color: beige;
 }
 
+#logout {
+	background-color: transparent;
+	height: 36px;
+	margin-top: 6px;
+	border: 0;
+	font-size: large;
+	color: white;
+}
+
+.navbar-brand, navbar-colapse, #navbar-container {
+	background: #5cb85c;
+	border: 1px solid gray;
+}
+
+.navbar-default .navbar-nav>li>a {
+	color: white;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus,
+	.navbar-default .navbar-nav>.active>a:hover {
+	background-color: seagreen;
+	color: white;
+}

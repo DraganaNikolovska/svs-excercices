@@ -1,0 +1,14 @@
+table {
+	margin-left: 3%;
+	width: 50%;
+}
+
+td {
+	padding: 4%;
+}
+
+tr {
+	background-color: white;
+	border-radius: 2%;
+	border: 2px solid green;
+}

@@ -1,0 +1,11 @@
+#image {
+	width: 200px;
+	height: 200px;
+	border: 2px dashed;
+	padding: 9%;
+}
+
+.info-title {
+	font-size: large;
+	margin-left: 3%
+}

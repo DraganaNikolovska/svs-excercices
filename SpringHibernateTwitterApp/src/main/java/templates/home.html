@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Twitter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link
+	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}"
+	rel="stylesheet" media="screen" />
+
+<script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+	th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+<!-- Site script -->
+<script src="../static/js/site.js" th:src="@{/js/site.js}">
+	
+</script>
+
+<link href="../static/css/master.css" th:href="@{/css/master.css}"
+	rel="stylesheet" media="screen" />
+<link href="../static/css/home.css" th:href="@{/css/home.css}"
+	rel="stylesheet" media="screen" />
+</head>
+<body>
+	<div class="container">
+
+		<div class="navbar" th:fragment="navbar">
+			<div class="container">
+				<nav class="navbar navbar-default">
+					<div class="container-fluid" id="navbar-container">
+						<!-- Brand and toggle get grouped for better mobile display -->
+						<div class="navbar-header">
+							<a class="navbar-brand" href="#">Twitter</a>
+						</div>
+
+						<!-- Collect the nav links, forms, and other content for toggling -->
+						<div class="collapse navbar-collapse"
+							id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav">
+								<li class="active"><a href="#" th:href="@{/home}">My
+										profile <span class="sr-only">(current)</span>
+								</a></li>
+								<li><a href="#" th:href="@{/tweets}">My tweets</a></li>
+								<li><a href="#" th:href="@{/tweets/all}">All tweets</a></li>
+							</ul>
+							<ul class="nav navbar-nav navbar-right">
+								<li>
+									<form th:action="@{/logout}" method="post">
+										<button type="submit" id="logout">Log out</button>
+									</form>
+								</li>
+							</ul>
+						</div>
+						<!-- /.navbar-collapse -->
+					</div>
+					<!-- /.container-fluid -->
+				</nav>
+			</div>
+		</div>
+
+		<div th:with="currentUser=${#httpServletRequest.userPrincipal?.name}"
+			class="row">
+			<div th:if="${currentUser != null}">
+				<h2 style="text-align: center; margin-bottom: 3%;">
+					Welcome <span th:text="${currentUser}">some user</span> to twitter
+					application
+				</h2>
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-2">
+				<div id="image">
+					<h3>User picture</h3>
+				</div>
+				<a>Upload new profile picture</a>
+			</div>
+			<div>
+				<span class="info-title">Username: </span> <span class="info"
+					th:text="${user.name}"></span><br /> <span class="info-title">Email:</span>
+				<span class="info" th:text="${user.email}"> </span><br /> <span
+					class="info-title">Total number of tweets: </span> <span
+					class="info"></span><br /> <span class="info-title">Total
+					number of likes: </span> <span class="info" th:text="${likes}"> </span>
+			</div>
+
+			<form class="form-vertical col-sm-6" action="#"
+				th:action="@{/tweets}" th:object="${tweet}" method="post"
+				style="margin-top: -4%; margin-left: 33%;">
+				<div class="form-group">
+					<label for="comment" class="control-label">Write new tweet</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" rows="5" th:field="*{message}"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-warning">Post</button>
+					</div>
+				</div>
+			</form>
+
+		</div>
+	</div>
+
+</body>
+</html>

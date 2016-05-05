@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Registration</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<style>
+body {
+	background-color: beige;
+}
+
+form {
+	margin: auto;
+	width: 400px;
+}
+
+#register {
+	height: 31px;
+	background-color: #5cb85c;
+	color: white;
+	width: 64%;
+	font-size: medium;
+	margin-left: 4%;
+}
+
+form label {
+	width: 75px;
+	margin-top: 3%;
+	margin-left: 5%;
+	display: inline-block;
+}
+
+form input {
+	height: 25px;
+	margin-bottom: 1%;
+}
+</style>
+
+</head>
+<body>
+
+	<h2 style="text-align: center">Twitter app registration</h2>
+	<form action="#" th:action="@{/register}" method="post"
+		th:object="${twitter_user}">
+
+
+		<label for="name">Name</label> <input type="text" placeholder="Name"
+			th:field="*{name}" /> <br /> <label for="surname">Surname</label> <input
+			type="text" placeholder="Surname" th:field="*{surname}" /> <br /> <label
+			for="email">Email</label> <input type="email" placeholder="Email"
+			th:field="*{email}" /> <br /> <label for="password">Password</label>
+		<input type="password" placeholder="Password" th:field="*{password}" />
+
+		<button type="submit" id="register">Register</button>
+
+	</form>
+
+</body>
+</html>

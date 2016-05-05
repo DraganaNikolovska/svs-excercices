@@ -2,12 +2,12 @@ package com.seavus.twitter.data_access;
 
 import java.util.List;
 
-import com.seavus.twitter.domain.TweeterUser;
+import com.seavus.twitter.domain.TwitterUser;
 public interface UserDao {
 
-	public void insertUser(String userName, String password);
+	public void insertUser(String userName, String password, String surname, String email);
 
-	public List<TweeterUser> findAll();
+	public List<TwitterUser> findAll();
 	
-	public TweeterUser findByUserName(String username);
+	public TwitterUser findByUserName(String username);
 }

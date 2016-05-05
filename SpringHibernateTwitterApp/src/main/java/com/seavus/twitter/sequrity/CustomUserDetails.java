@@ -1,4 +1,4 @@
-package com.seavus.twitter.domain;
+package com.seavus.twitter.sequrity;
 
 import java.util.Collection;
 
@@ -6,9 +6,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class CustomUserDetails extends TweeterUser implements UserDetails {
+import com.seavus.twitter.domain.TwitterUser;
 
-	public CustomUserDetails(TweeterUser user) {
+public class CustomUserDetails extends TwitterUser implements UserDetails {
+
+	public CustomUserDetails(TwitterUser user) {
 		super(user);
 	}
 

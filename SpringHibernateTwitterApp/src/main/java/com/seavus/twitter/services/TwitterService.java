@@ -14,16 +14,14 @@ import org.springframework.stereotype.Service;
 import com.seavus.twitter.data_access.TweetDao;
 import com.seavus.twitter.data_access.UserDao;
 import com.seavus.twitter.domain.Tweet;
-import com.seavus.twitter.domain.TweeterUser;
-import com.seavus.twitter.presentation.TwitterController;
+import com.seavus.twitter.domain.TwitterUser;
+import com.seavus.twitter.presentation.TwitterConsoleController;
 
 @Service
 public class TwitterService {
 
 	private TweetDao tweeterDao;
 	private UserDao userDao;
-	
-	
 
 	@Autowired
 	public TwitterService(TweetDao messageDao, UserDao userDao) {
@@ -32,7 +30,7 @@ public class TwitterService {
 	}
 
 	public void tweetMessage(String tweet, String username) {
-		TweeterUser user = userDao.findByUserName(username);
+		TwitterUser user = userDao.findByUserName(username);
 		tweeterDao.insertTweet(tweet, user);
 	}
 
@@ -46,7 +44,19 @@ public class TwitterService {
 
 	}
 
-	public void addNewUser(String username, String password) {
-		userDao.insertUser(username, password);
+	public void addNewUser(String username, String password, String surname, String email) {
+		userDao.insertUser(username, password, surname, email);
+	}
+
+	public Long getTotalNumberOfLikesForUser(TwitterUser tweeterUser) {
+		return tweeterDao.getTotalNumberOfLikes(tweeterUser);
+	}
+
+	public List<Tweet> listUsersTweets(TwitterUser user) {
+		return tweeterDao.listUsersTweets(user);
+	}
+
+	public void registerLike(Long id) {
+		tweeterDao.registerLike(id);;
 	}
 }

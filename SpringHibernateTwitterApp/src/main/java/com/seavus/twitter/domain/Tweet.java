@@ -16,7 +16,7 @@ public class Tweet implements Comparable<Tweet> {
 
 	@Id @GeneratedValue private Long id;
 	@ManyToOne
-	private TweeterUser tweeterUser;
+	private TwitterUser tweeterUser;
 	private String message;
 	private Timestamp date;
 	private Integer likes;
@@ -63,10 +63,10 @@ public class Tweet implements Comparable<Tweet> {
 	public void setLikes(Integer likes) {
 		this.likes = likes;
 	}
-	public void setTweeterUser(TweeterUser tweeterUser) {
+	public void setTweeterUser(TwitterUser tweeterUser) {
 		this.tweeterUser = tweeterUser;
 	}
-	public TweeterUser getTweeterUser() {
+	public TwitterUser getTweeterUser() {
 		return tweeterUser;
 	}
 	public Long getId() {

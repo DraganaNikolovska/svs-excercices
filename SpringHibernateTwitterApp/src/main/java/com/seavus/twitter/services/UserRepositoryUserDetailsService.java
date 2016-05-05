@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.seavus.twitter.data_access.HibernateUserDao;
-import com.seavus.twitter.domain.CustomUserDetails;
-import com.seavus.twitter.domain.TweeterUser;
+import com.seavus.twitter.domain.TwitterUser;
+import com.seavus.twitter.sequrity.CustomUserDetails;
 
 @Service
 public class UserRepositoryUserDetailsService implements UserDetailsService {
@@ -22,7 +22,7 @@ public class UserRepositoryUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		TweeterUser twitterUser = hibernateUserDao.findByUserName(username);
+		TwitterUser twitterUser = hibernateUserDao.findByUserName(username);
 		if (twitterUser == null) {
 			throw new UsernameNotFoundException("Could not find user " + username);
 		}

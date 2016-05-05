@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Twitter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link
+	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}"
+	rel="stylesheet" media="screen" />
+<script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+	th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+
+<!-- Site script -->
+<script src="../static/js/site.js" th:src="@{/js/site.js}">
+	
+</script>
+
+<!-- MASTER CSS -->
+<link href="../static/css/master.css" th:href="@{/css/master.css}"
+	rel="stylesheet" media="screen" />
+<!-- tweet CSS -->
+<link href="../static/css/tweets.css" th:href="@{/css/tweets.css}"
+	rel="stylesheet" media="screen" />
+</head>
+<body>
+	<div class="container">
+		<div class="navbar" th:fragment="navbar">
+			<div class="container">
+				<nav class="navbar navbar-default">
+					<div class="container-fluid" id="navbar-container">
+						<!-- Brand and toggle get grouped for better mobile display -->
+						<div class="navbar-header">
+							<a class="navbar-brand" href="#">Twitter</a>
+						</div>
+
+						<!-- Collect the nav links, forms, and other content for toggling -->
+						<div class="collapse navbar-collapse"
+							id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav">
+								<li><a href="#" th:href="@{/home}">My profile <span
+										class="sr-only">(current)</span>
+								</a></li>
+								<li class="active"><a href="#" th:href="@{/tweets}">My
+										tweets</a></li>
+								<li><a href="#" th:href="@{/tweets/all}">All tweets</a></li>
+							</ul>
+							<ul class="nav navbar-nav navbar-right">
+								<li>
+									<form th:action="@{/logout}" method="post">
+										<button type="submit" id="logout">Log out</button>
+									</form>
+								</li>
+							</ul>
+						</div>
+						<!-- /.navbar-collapse -->
+					</div>
+					<!-- /.container-fluid -->
+				</nav>
+			</div>
+		</div>
+		<div class="row">
+			<table>
+				<tr th:each="tweet: ${tweets}">
+					<td th:text="${tweet.message}">message</td>
+					<td th:text="${tweet.date}">date</td>
+					<td>
+					<a th:href="@{/tweets/{id}(id=${tweet.id})}">
+						Like
+					</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+	</div>
+</body>
+
+</html>

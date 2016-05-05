@@ -1,4 +1,4 @@
-package com.seavus.twitter.config.sequrity;
+package com.seavus.twitter.sequrity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,7 @@ public class WebSequrityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception{
 		 http
          .authorizeRequests()
-         	.antMatchers("/resources/**").permitAll()
+         	.antMatchers("/resources/**", "/register").permitAll()
              .anyRequest().authenticated()
              .and()
          .formLogin()

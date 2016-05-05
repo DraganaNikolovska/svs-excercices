@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.seavus.twitter.domain.Tweet;
-import com.seavus.twitter.domain.TweeterUser;
+import com.seavus.twitter.domain.TwitterUser;
 @Repository
 public class HibernateUserDao implements UserDao {
 	private SessionFactory sessionFactory;
@@ -23,14 +23,16 @@ public class HibernateUserDao implements UserDao {
 	}
 
 	@Override
-	public void insertUser(String userName, String password) {
+	public void insertUser(String userName, String password, String surname, String email) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			TweeterUser user = new TweeterUser();
+			TwitterUser user = new TwitterUser();
 			user.setName(userName);
 			user.setPassword(password);
+			user.setEmail(email);
+			user.setSurname(surname);
 			session.save(user);
 			tx.commit();
 		} catch (RuntimeException e) {
@@ -45,19 +47,19 @@ public class HibernateUserDao implements UserDao {
 	}
 
 	@Override
-	public List<TweeterUser> findAll() {
+	public List<TwitterUser> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public TweeterUser findByUserName(String username) {
+	public TwitterUser findByUserName(String username) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Criteria cr = session.createCriteria(TweeterUser.class);
-			TweeterUser user = (TweeterUser) cr.add(Restrictions.eq("name", username)).uniqueResult();
+			Criteria cr = session.createCriteria(TwitterUser.class);
+			TwitterUser user = (TwitterUser) cr.add(Restrictions.eq("name", username)).uniqueResult();
 			tx.commit();
 			return user;
 		} catch (RuntimeException e) {

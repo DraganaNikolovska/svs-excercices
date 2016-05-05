@@ -8,7 +8,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.springframework.context.annotation.Bean;
 import com.seavus.twitter.domain.Tweet;
-import com.seavus.twitter.domain.TweeterUser;
+import com.seavus.twitter.domain.TwitterUser;
 
 @org.springframework.context.annotation.Configuration
 public class HibernateConfiguration {
@@ -18,7 +18,7 @@ public class HibernateConfiguration {
 		Configuration configuration = new Configuration();
 		ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 				.applySettings(configuration.getProperties()).build();
-		SessionFactory sessionFactory = configuration.addAnnotatedClass(TweeterUser.class).addAnnotatedClass(Tweet.class)
+		SessionFactory sessionFactory = configuration.addAnnotatedClass(TwitterUser.class).addAnnotatedClass(Tweet.class)
 				.buildSessionFactory(serviceRegistry);
 		return sessionFactory;
 	}

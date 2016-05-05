@@ -17,7 +17,7 @@ import com.seavus.twitter.domain.Tweet;
 import com.seavus.twitter.services.TwitterService;
 
 @Controller
-public class TwitterController {
+public class TwitterConsoleController {
 
 	private final String TWEET = "1";
 	private final String LIST_TWEETS = "2";
@@ -28,7 +28,7 @@ public class TwitterController {
 	private Scanner scanner;
 
 	@Autowired
-	public TwitterController(TwitterService service) {
+	public TwitterConsoleController(TwitterService service) {
 		this.twitterService = service;
 		scanner = new Scanner(System.in);
 	}
@@ -54,7 +54,11 @@ public class TwitterController {
 				username = scanner.nextLine();
 				System.out.println("Enter password");
 				password = scanner.nextLine();
-				twitterService.addNewUser(username, password);
+				System.out.println("Enter surname");
+			    String surname = scanner.nextLine();
+			    System.out.println("Enter email");
+				String email = scanner.nextLine();
+				twitterService.addNewUser(username, password, surname, email);
 			}
 			showMenuOptions();
 		}
