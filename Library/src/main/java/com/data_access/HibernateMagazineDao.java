@@ -3,27 +3,21 @@ package com.data_access;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import lombok.AllArgsConstructor;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
 import com.domain.Entity;
 import com.domain.Magazine;
 
-@Repository
+@AllArgsConstructor
 public class HibernateMagazineDao implements MagazineDao {
 
 	private SessionFactory sessionFactory;
-
-	@Autowired
-	public HibernateMagazineDao(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
 
 	public void insert(Entity entity) {
 		Session session = sessionFactory.openSession();

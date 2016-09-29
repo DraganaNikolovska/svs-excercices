@@ -3,28 +3,21 @@ package com.data_access;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import lombok.AllArgsConstructor;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
-import com.domain.Book;
-import com.domain.Entity;
 import com.domain.Magazine;
 import com.domain.Publication;
-@Repository
+
+@AllArgsConstructor
 public class HibernatePublicationDao implements PublicationDao {
 
 	private SessionFactory sessionFactory;
-
-	@Autowired
-	public HibernatePublicationDao(SessionFactory s) {
-		this.sessionFactory = s;
-	}
 
 	@Override
 	public List<Publication> listAll() {
@@ -34,8 +27,8 @@ public class HibernatePublicationDao implements PublicationDao {
 		try {
 			tx = session.beginTransaction();
 			String hql = "FROM Publication p ORDER BY p.id";
-			Query query = session.createQuery(hql);		
-			publications = query.list();		
+			Query query = session.createQuery(hql);
+			publications = query.list();
 			tx.commit();
 		} catch (RuntimeException e) {
 			if (tx != null)
@@ -67,6 +60,6 @@ public class HibernatePublicationDao implements PublicationDao {
 			session.close();
 		}
 	}
-	
+
 
 }

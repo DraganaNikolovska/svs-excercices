@@ -3,33 +3,28 @@ package com.app;
 import java.util.Date;
 import java.util.Scanner;
 
-import org.springframework.beans.BeansException;
-import org.springframework.boot.CommandLineRunner;
+
+
+import com.data_access.config.DataAccessConfig;
+import com.presentation.config.ControllerConfig;
+import com.services.config.ServiceConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import com.presentation.LibraryController;
+import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
-@ComponentScan(basePackages = "com.*")
-public class LibraryApp implements CommandLineRunner, ApplicationContextAware {
-
-	private ApplicationContext context;
+@ComponentScan
+@Import( {DataAccessConfig.class, ServiceConfig.class, ControllerConfig.class})
+public class LibraryApp {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LibraryApp.class, args);
+		ConfigurableApplicationContext context = SpringApplication.run(LibraryApp.class);
+		LibraryController controller = context.getBean(LibraryController.class);
+		controller.run();
 	}
 
-	@Override
-	public void run(String... arg0) throws Exception {
-		context.getBean(LibraryController.class).run();
-	}
-
-	@Override
-	public void setApplicationContext(ApplicationContext arg0) throws BeansException {
-		this.context = arg0;		
-	}
 
 }

@@ -3,29 +3,21 @@ package com.data_access;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import lombok.AllArgsConstructor;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
 import com.domain.Book;
 import com.domain.Entity;
-import com.domain.Member;
-import com.domain.Publication;
 
-@Repository
+@AllArgsConstructor
 public class HibernateBookDao implements BookDao {
 
 	private SessionFactory sessionFactory;
-
-	@Autowired
-	public HibernateBookDao(SessionFactory s) {
-		this.sessionFactory = s;
-	}
 
 	public void insert(Entity entity) {
 		Session session = sessionFactory.openSession();

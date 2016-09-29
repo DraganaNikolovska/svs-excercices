@@ -1,5 +1,7 @@
 package com.services;
 
+
+
 import com.domain.Book;
 import com.domain.Entity;
 import com.domain.Loan;
@@ -9,25 +11,17 @@ import com.domain.Publication;
 import exceptions.NonExistingBook;
 import exceptions.NonExistingMagazine;
 import exceptions.NonExistingMember;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
 import com.data_access.BookDao;
-import com.data_access.Dao;
-import com.data_access.HibernateBookDao;
 import com.data_access.LoanDao;
 import com.data_access.MagazineDao;
 import com.data_access.MemberDao;
 import com.data_access.PublicationDao;
+import lombok.AllArgsConstructor;
 
-@Service
+@AllArgsConstructor
 public class LibraryService {
 
 	private BookDao bookDao;
@@ -35,16 +29,6 @@ public class LibraryService {
 	private MagazineDao magzineDao;
 	private LoanDao loanDao;
 	private PublicationDao publicationDao;
-
-	@Autowired
-	public LibraryService(BookDao bookDao, MemberDao memberDao, MagazineDao magazineDao, LoanDao loanDao,
-			PublicationDao publicationDao) {
-		this.bookDao = bookDao;
-		this.memberDao = memberDao;
-		this.magzineDao = magazineDao;
-		this.loanDao = loanDao;
-		this.publicationDao = publicationDao;
-	}
 
 	public void registerBook(String isbn, String title) {
 		Book book = new Book();

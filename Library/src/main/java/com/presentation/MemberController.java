@@ -2,7 +2,9 @@ package com.presentation;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,12 +14,17 @@ import com.domain.Entity;
 import com.domain.Member;
 import com.services.LibraryService;
 
-@Controller
+
 @RequestMapping("/members")
+
 public class MemberController {
 
-	@Autowired
+	//@Autowired
 	private LibraryService libraryService;
+
+	public MemberController(LibraryService libraryService){
+		this.libraryService = libraryService;
+	}
 
 	@ModelAttribute("member")
 	public Member setMemberAttribute() {

@@ -2,12 +2,10 @@ package com.presentation;
 
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.context.annotation.Import;
+import org.springframework.web.bind.annotation.*;
 
 import com.domain.Book;
 import com.domain.Entity;
@@ -15,9 +13,9 @@ import com.services.LibraryService;
 
 @RestController
 @RequestMapping("/api/books")
+@AllArgsConstructor
 public class BookRestController {
 
-	@Autowired
 	LibraryService libraryService;
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -27,6 +25,7 @@ public class BookRestController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Book book(@PathVariable("id") Integer id) {
+
 		return libraryService.findBookById(id);
 	}
 	
@@ -44,7 +43,7 @@ public class BookRestController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public String unregisterBook(@PathVariable("id") Integer id) {
+	public @ResponseBody String unregisterBook(@PathVariable("id") Integer id) {
 		libraryService.unregisterBook(id);
 		return "Success";
 	}
