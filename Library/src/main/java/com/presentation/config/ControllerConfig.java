@@ -5,6 +5,7 @@ import com.services.LibraryService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration;
 
 /**
  * Created by dragana.nikolovska on 9/27/2016.
@@ -51,5 +52,9 @@ public class ControllerConfig {
     @Bean
     public PublicationController publicationController(LibraryService libraryService){
         return new PublicationController(libraryService);
+    }
+    @Bean
+    public Swagger2DocumentationConfiguration swagger2DocumentationConfiguration(){
+        return new Swagger2DocumentationConfiguration();
     }
 }

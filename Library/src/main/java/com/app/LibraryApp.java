@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import com.data_access.config.DataAccessConfig;
 import com.presentation.config.ControllerConfig;
+import com.presentation.config.SwaggerConfig;
 import com.services.config.ServiceConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,12 +20,7 @@ import org.springframework.context.annotation.Import;
 @ComponentScan
 @Import( {DataAccessConfig.class, ServiceConfig.class, ControllerConfig.class})
 public class LibraryApp {
-
 	public static void main(String[] args) {
-		ConfigurableApplicationContext context = SpringApplication.run(LibraryApp.class);
-		LibraryController controller = context.getBean(LibraryController.class);
-		controller.run();
+		SpringApplication.run(LibraryApp.class, args);
 	}
-
-
 }

@@ -2,6 +2,8 @@ package com.presentation;
 
 import java.util.List;
 
+
+import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
@@ -12,6 +14,7 @@ import com.domain.Entity;
 import com.services.LibraryService;
 
 @RestController
+/*@Api(value = "onlineLibrary", description = "Hello everyone!!:)")*/
 @RequestMapping("/api/books")
 @AllArgsConstructor
 public class BookRestController {

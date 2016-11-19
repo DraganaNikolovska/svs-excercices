@@ -30,14 +30,14 @@ public class BookController {
 
     private LibraryService libraryService;
 
-    @ModelAttribute("books")
-    public List<Entity> books() {
-        return libraryService.listRegisteredBooks();
-    }
-
     @RequestMapping(method = RequestMethod.GET)
     public String listBooks() {
         return "books";
+    }
+
+    @ModelAttribute("books")
+    public List<Entity> books() {
+        return libraryService.listRegisteredBooks();
     }
 
     @ModelAttribute("book")

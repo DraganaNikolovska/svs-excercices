@@ -11,17 +11,26 @@
 
 <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
 	th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+<script src="../static/js/site.js" th:src="@{/js/site.js}"></script>
 <link href="../static/css/master.css" th:href="@{/css/master.css}"
 	rel="stylesheet" media="screen" />
-
+<style>
+#publication_list li {
+	background-color: #fff;
+	width: 30%;
+	padding: 1%;
+}
+</style>
 </head>
 <body>
+
+	
 	<div class="container">
-		<div th:replace="fragments/header :: header">&nbsp;</div>
-		<h1>Welcome to our library</h1>
-		<div>
-			<img src="../img/library_index.jpg" alt="image"/>
-		</div>
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+		<ul th:each="publication: ${publications}" id="publication_list">
+			<li><span style="font-weight: bold">Title: </span> <span
+				th:text="${publication.title}"></span></li>
+		</ul>
 	</div>
 </body>
 </html>

@@ -48,9 +48,9 @@ public class LibraryService {
 
 	public List<Entity> listRegisteredBooks() {
 		ArrayList<Entity> books = (ArrayList<Entity>) bookDao.listAll();
-		for (Entity entity : books) {
-			System.out.println((Book) entity);
-		}
+		books.forEach(entity->
+				System.out.println((Book)entity)
+		);
 		return books;
 	}
 
